@@ -77,4 +77,14 @@ class Category
 
         return $this;
     }
+
+    /**
+     * Fonctions utilisée pour convertir en string le nom lors d'une requête (SearchBar) qui fait appel à tout l'objet Category
+     *
+     * @return string
+     */
+    public function __toString()   
+    {
+        return $this->name;
+    }
 }
