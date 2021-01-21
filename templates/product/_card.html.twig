@@ -1,0 +1,13 @@
+<div class="card">
+    <img src=" {{ product.image}} " alt="" class="card-img-top">
+    <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <div class="card-title card-price">
+            {{ product.price | number_format(0, ',', ' ') }} €
+            {% if product.promo %}
+                <div class="text text-warning">Promo !</div>
+            {% endif %}
+        </div>
+        <p class="text text-muted">{{ product.description }}</p>
+    </div>
+</div>
