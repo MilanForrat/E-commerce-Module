@@ -15,6 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
@@ -25,8 +26,8 @@ class ProductRepository extends ServiceEntityRepository
      *
      * @return Product[]
      */
-   public function findSearch(SearchData $search): array{    // SearchData est le type de paramètre et que l'on nommera search
-    $query = $this
+     public function findSearch(SearchData $search): array{    // SearchData est le type de paramètre et que l'on nommera search
+        $query = $this
         ->createQueryBuilder('p')
         ->select('c', 'p')              // on met cette requête afin de diminuer le nombre de requêtes individuelles, 
         ->join('p.categories', 'c');  //et les grouper
@@ -60,7 +61,6 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('categories', $search->categories);  // j'indique que mon paramètre categories correspondant à la liste de recherche categories
         }
 
-
-       return $query->getQuery()->getResult();
+        return $query = $query->getQuery()->getResult();
    }
 }

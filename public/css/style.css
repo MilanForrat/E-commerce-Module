@@ -11,8 +11,14 @@ body{
   padding: 10px;
   grid-template-areas:
   'header header header header header header'
-  'menu main main main main right'
+  'menu main main main main main'
   'menu footer footer footer footer footer';
+}
+@media(max-width: 451px){
+  .grid-container{
+    display: flex !important;
+    flex-direction: column !important;
+  }
 }
 a{
   text-decoration: underline;
@@ -50,10 +56,33 @@ a:hover{
 .main{
   grid-area: main;
 }
-.grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+@media(min-width: 451px){
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+}
+@media(max-width: 450px){
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+}
+@media(min-width: 1250px){
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 20px;
+    }
+}
+@media(max-width: 1249px){
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
 }
 .card-name{
   text-align: center;
@@ -90,6 +119,9 @@ a:hover{
 .card-categories{
   color: rgb(141, 187, 201);
   text-shadow: rgb(0, 0, 0) 1px 0 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
 }
 /*     FILTERS      */
 .menu{
@@ -143,12 +175,4 @@ a:hover{
 .submit-buttons_reset{
   width: 50%;
   margin: 0.2rem
-}
-/*    RIGHT     */
-.right{
-    grid-area: right;
-}
-.panier{
-  border: 1px solid black;
-  padding: 0.5rem;
 }
