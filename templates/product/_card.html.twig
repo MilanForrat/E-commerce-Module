@@ -2,12 +2,19 @@
     <img src=" {{ product.image}} " alt="" class="card-img-top">
     <div class="card-body">
         <h5 class="card-title card-name">{{ product.name }}</h5>
-        <div class="card-title card-price">
-            {{ product.price | number_format(0, ',', ' ') }} €
+        <div class="card-price">
             {% if product.promo %}
-                <div class="text text-warning">Promo !</div>
+            <div class="text text-warning card-promo_text col-md-6">En promotion !</div>
             {% endif %}
+            <div class="card-title card-price_number col-md-6">
+                {{ product.price | number_format(0, ',', ' ') }} €
+            </div>
         </div>
         <p class="text card-text">{{ product.description }}</p>
+        <div>
+            {% for c in product.categories %}  <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
+            <p class="card-categories">#{{ c.name }}</p>
+            {% endfor %}
+        </div>
     </div>
 </div>

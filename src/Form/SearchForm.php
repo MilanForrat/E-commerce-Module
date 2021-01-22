@@ -20,7 +20,7 @@ class SearchForm extends AbstractType{
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Rechercher'
+                    'placeholder' => 'Rechercher un produit...'
                 ]
             ])
             ->add('categories', EntityType::class, [
@@ -34,14 +34,14 @@ class SearchForm extends AbstractType{
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Prix Minimum'
+                    'placeholder' => 'Prix Min.'
                 ]
             ])
             ->add('max', NumberType::class,[
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Prix Max'
+                    'placeholder' => 'Prix Max.'
                 ]
             ])
             ->add('promo', CheckboxType::class,[
