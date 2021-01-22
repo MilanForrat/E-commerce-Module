@@ -3,19 +3,19 @@
 {% block title %}Tous nos produits{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                {% include 'product/_filter.html.twig' with {form: form} only %}
-            </div>
-            <div class="col-md-9">
-                <div class="grid">
-                    {% for product in products %}
-                        {% include 'product/_card.html.twig' with {product: product} only %}
-                    {% endfor %}
-                </div>
+    <div class="grid-container">
+        <div class="menu">
+            {% include 'product/_filter.html.twig' with {form: form} only %}
+        </div>
+        <div class="main">
+            <div class="grid">
+                {% for product in products %}
+                    {% include 'product/_card.html.twig' with {product: product} only %}
+                {% endfor %}
             </div>
         </div>
-        
+        <div class="right">
+            {% include 'product/_pub.html.twig' %}
+        </div>
     </div>
 {% endblock %}

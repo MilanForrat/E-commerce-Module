@@ -2,42 +2,58 @@
 body{
   background-image: url(../images/background.jpg);
 }
+.container{
+  margin: 0 3vw 0 3vw;
+}
+.grid-container{
+  display: grid;
+  grid-gap: 15px;
+  padding: 10px;
+  grid-template-areas:
+  'header header header header header header'
+  'menu main main main main right'
+  'menu footer footer footer footer footer';
+}
 a{
-    text-decoration: underline;
-    color: black;
-    text-decoration-color: rgba(255, 255, 255, 0.5);
+  text-decoration: underline;
+  color: black;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
 }
 a:hover{
-    color: rgb(196, 232, 255);
-    transition: 0.5s;
+  color: rgb(196, 232, 255);
+  transition: 0.5s;
 }
 /*     HEADER      */
 .top-header{
-    text-align: center;
+  text-align: center;
+  grid-area: header;
 }
 .top-header_title{
-    margin: 2rem auto 1rem auto;
-    font-style: italic;
-    font-family: 'Fugaz One';
-    font-size: 5vw;
-    text-shadow: lightgoldenrodyellow 1px 0 10px;
+  margin: 2rem auto 1rem auto;
+  font-style: italic;
+  font-family: 'Fugaz One';
+  font-size: 5vw;
+  text-shadow: lightgoldenrodyellow 1px 0 10px;
 }
 .top-header_credits{
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 15vw;
-    margin-bottom: 2rem;
-    font-style: italic;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15vw;
+  margin-bottom: 2rem;
+  font-style: italic;
 }
 .top-header_credits a{
-    margin-left: 0.5rem;
-    text-shadow: rgb(255, 255, 255) 1px 0 15px;
+  margin-left: 0.5rem;
+  text-shadow: rgb(255, 255, 255) 1px 0 15px;
 }
 /*     CARDS      */
+.main{
+  grid-area: main;
+}
 .grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
 }
 .card-name{
   text-align: center;
@@ -46,13 +62,13 @@ a:hover{
   font-size: 1.4rem;
   text-shadow: rgb(0, 0, 0) 1px 0 10px;
 }
-.card-price{
-    font-weight: bold;
-    font-size: 1.3rem;
-    color: rgb(196, 232, 255);
-    display: flex;
-    justify-content: flex-end;
-    text-shadow: rgb(0, 0, 0) 1px 0 10px;
+.card-price_number{
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: rgb(196, 232, 255);
+  display: flex;
+  justify-content: flex-end;
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
 }
 .card-text{
   color: lightgoldenrodyellow;
@@ -62,10 +78,77 @@ a:hover{
   opacity: 0.8;
   background-color: #303030;
 }
+.card-promo_text{
+  font-size: smaller;
+  padding-top: 0.3rem;
+}
+.card-price{
+  display: flex;
+  justify-content: flex-end;
 
+}
+.card-categories{
+  color: rgb(141, 187, 201);
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
+}
 /*     FILTERS      */
-.filter{
+.menu{
+  grid-area: menu;
+}
+.filter_form{
   display: block;
   position: sticky;
-  top: 20px
+  top: 20px;
+
+}
+.filter-categories_title, .filter-prix_title, .filter-promo_title{
+  color: lightgoldenrodyellow;
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
+  margin: 1rem; 
+}
+.filter-categories_input, .filter-promo_input{ 
+  color: lightgoldenrodyellow;
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.form-group {
+  color: lightgoldenrodyellow;
+  text-shadow: rgb(0, 0, 0) 1px 0 10px;
+  margin-left: 1.5rem;
+}
+.filter-price-min_input, .filter-price-max_input, .filter-search_input{
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+  background-color: #303030;
+}
+.filter-price-min_input:focus, .filter-price-max_input:focus, .filter-search_input:focus{
+  background-color: #303030;
+  color: lightgoldenrodyellow;
+}
+
+.filter-price-min_input::placeholder, .filter-price-max_input::placeholder, .filter-search_input::placeholder{
+  color: lightgoldenrodyellow !important;
+}
+.filter-search_input{
+  margin-bottom: 1.5rem;
+}
+.submit-buttons{
+  display: flex;
+}
+.submit-buttons_filter{
+  width: 50%;
+  margin: 0.2rem
+}
+.submit-buttons_reset{
+  width: 50%;
+  margin: 0.2rem
+}
+/*    RIGHT     */
+.right{
+    grid-area: right;
+}
+.panier{
+  border: 1px solid black;
+  padding: 0.5rem;
 }
