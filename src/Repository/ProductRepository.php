@@ -63,4 +63,33 @@ class ProductRepository extends ServiceEntityRepository
 
         return $query = $query->getQuery()->getResult();
    }
+
+    /**
+    * Paginates the products
+    * @return void
+    */
+    public function getPaginatedProducts($page, $limit){
+            $query = $this->createQueryBuilder('p')   // p pour les produits
+                ->where('p.status = 1')  // status 1 = active product
+                //->andWhere('p.stock =1') // pour plus tard si je mets une fonction stock en bdd
+                //->orderBy('p.createdAt')  // pour une mise en ordre par date de création
+                ->setFirstResult(($page * $limit) - $limit)  // permet de commencer par l'élément 0 : exemple : page = 1 et limit = 10 je fais 1 * 10 - 10 = 0 donc 0 est bien mon premier élément...
+                ->setMaxResults($limit)  // nombre de résultats à retourner
+            ;
+
+            return $query->getQuery()->getResult();
+
+    }
+
+    /**
+     * Returns the nomber of produtcs
+     */
+    public function getTotalProducts(){
+        $query= $this->createQueryBuilder('p')
+        ->select('COUNT(p)')     // afin de compter le nombre de produits
+        ->where('p.status = 1')
+        ;
+
+        return $query->getQuery()->getSingleScalarResult();    // permet d'avoir un résultat qui n'est ni un tableau ni un objet (donc soit : int / string ...)
+    }
 }

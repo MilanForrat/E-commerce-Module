@@ -15,4 +15,24 @@
             </div>
         </div>
     </div>
+    <ul class="pagination">
+            <li class="{{ (page == 1) ? 'disabled' : '' }}"> <!-- SI ma page est à 1 alors j'applique la classe disabled -->
+                <a href="{{ (page = 1) ? '?page=' ~ (page -1) : ''}}">fleche gauche font awesome</a>
+            </li>
+            <li class="{{ (page == 1) ? 'disabled' : '' }}"> 
+                <a href="{{ (page > 1) ? '?page=' ~ (page -1) : ''}}">fleche gauche font awesome</a>
+            </li> <!-- ici je bloque le "précédant" d'aller à -1 et j'utilise de la concaténation -->
+            {% set pages = (total / limit)|round(0, 'ceil') %} <!-- j'initialise une variable pages, où 1.. permet d'annoncer un calcul puis round() permet de arroindir avec 0 après la virgule, et ceil pour arrondier au supérieur (sinon c'est floor)--> 
+            {% for item in 1..pages %}   <!--ici, item veut dire "page actuelle" -->
+                <li class="{{ (page == item) ? 'active' : ''}}">  <!-- ternaire : SI() page = item ALORS?j'écris active SINON: je n'écris rien -->
+                    <a href="?page={{ item }}">{{ item }}</a>
+                </li>
+            {% endfor %}
+            <li class="{{ (page == pages) ? 'disabled' : '' }}"> <!-- SI ma page est à la limit alors j'applique la classe disabled -->
+                <a href="{{ (page < pages) ? '?page=' ~ (page +1) : '' }}">fleche droite font awesome</a>
+            </li>
+            <li class="{{ (page == pages) ? 'disabled' : '' }}"> <!-- SI ma page est à 1 alors j'applique la classe disabled -->
+                <a href="{{ pages }}">fleche gauche font awesome</a>
+            </li>
+    </ul>
 {% endblock %}
