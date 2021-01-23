@@ -1,28 +1,42 @@
-{{ form_start(form, {attr: {class: 'filter_form'}}) }}
-    {{ form_row(form.q, {attr: {class: 'filter-search_input'}}) }}  <!-- on personnalise le design du formulaire 'q' étant la variable de la barre de recherche -->
+<nav class="navbar navbar-expand-xl navbar-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" style="margin-bottom: 0.5rem;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            {{ form_start(form, {attr: {class: 'filter_form'}}) }}
 
-    <h4 class="filter-categories_title">Catégories</h4>
-    {{ form_row(form.categories, {attr: {class: 'filter-categories_input'}}) }}
-
-    <h4 class="filter-prix_title">Prix</h4>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.min, {attr: {class: 'filter-price-min_input'}}) }}
+            {{ form_row(form.q, {attr: {class: 'filter-search_input'}}) }}  <!-- on personnalise le design du formulaire 'q' étant la variable de la barre de recherche -->
+        
+            <h4 class="filter-categories_title">Catégories</h4>
+            {{ form_row(form.categories, {attr: {class: 'filter-categories_input'}}) }}
+        
+            <h4 class="filter-prix_title">Prix</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.min, {attr: {class: 'filter-price-min_input'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.max, {attr: {class: 'filter-price-max_input'}}) }}
+                </div>
+            </div>
+        
+            <h4 class="filter-promo_title">Promotion</h4>
+            <div class="filter-promo_input">
+                {{ form_row(form.promo) }}
+            </div>
+            
+            <div class="submit-buttons">
+                <button type="submit" class="btn btn-primary submit-buttons_filter w-60">Filtrer</button>
+                <button type="reset" class="btn btn-danger submit-buttons_reset ">Effacer les filtres</button>
+            </div>
+            {{ form_end(form) }}
         </div>
-        <div class="col-md-6">
-            {{ form_row(form.max, {attr: {class: 'filter-price-max_input'}}) }}
-        </div>
+      </div>
     </div>
+  </nav>
 
-    <h4 class="filter-promo_title">Promotion</h4>
-    <div class="filter-promo_input">
-        {{ form_row(form.promo) }}
-    </div>
-    
-    <div class="submit-buttons">
-        <button type="submit" class="btn btn-primary submit-buttons_filter w-60">Filtrer</button>
-        <button type="reset" class="btn btn-danger submit-buttons_reset ">Effacer les filtres</button>
-    </div>
-    
 
-{{ form_end(form) }}
+
+
