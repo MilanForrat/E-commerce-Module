@@ -14,7 +14,7 @@ body{
   'menu main main main main main'
   'menu footer footer footer footer footer';
 }
-@media(max-width: 451px){
+@media(max-width: 580px){
   .grid-container{
     display: flex !important;
     flex-direction: column !important;
@@ -56,31 +56,32 @@ a:hover{
 .main{
   grid-area: main;
 }
-@media(min-width: 451px){
+/*  NOTE: when using media querries, it's important toput them in the ASC resolution order or else the code won't work the way you want due to vertical lecture */
+@media(min-width: 400px){
   .grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
   }
 }
-@media(max-width: 450px){
-  .grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-  }
-}
-@media(min-width: 1250px){
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 20px;
-    }
-}
-@media(max-width: 1249px){
+@media(min-width: 800px){
   .grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+}
+@media(min-width: 1500px){
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  }
+}
+@media(min-width: 1750px){
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px;
   }
 }
@@ -127,11 +128,12 @@ a:hover{
 .menu{
   grid-area: menu;
 }
-.filter_form{
+@media(min-width: 992px){
+  .navbar{
   display: block;
   position: sticky;
   top: 20px;
-
+  }
 }
 .filter-categories_title, .filter-prix_title, .filter-promo_title{
   color: lightgoldenrodyellow;
@@ -153,6 +155,7 @@ a:hover{
   opacity: 0.9;
   margin-bottom: 0.5rem;
   background-color: #303030;
+  color: lightgoldenrodyellow;
 }
 .filter-price-min_input:focus, .filter-price-max_input:focus, .filter-search_input:focus{
   background-color: #303030;
