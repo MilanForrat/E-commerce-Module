@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Table(name="product", indexes={@ORM\Index(columns={"name", "description", "content"}, flags={"fulltext"})})
+ * the upper code is used for a fulltext search (searches differents columns of my entity)
  */
 class Product
 {

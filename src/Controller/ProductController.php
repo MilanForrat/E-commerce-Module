@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Data\SearchData;
 use App\Form\SearchForm;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +18,8 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $repository, Request $request){
 
+        $products = $repository->findAll();
+
         //on définit le nombre d'éléments par page
         $limit = 10;
 
@@ -34,11 +35,16 @@ class ProductController extends AbstractController
         $total = $repository->getTotalProducts();
         //dd($total); // on test le nombre total de produit
 
-        $data = new SearchData();
-        $form = $this->createForm(SearchForm::class, $data);
-        $form->handleRequest($request);  // je demande au formulaire de traiter la requête
+        
+        $form = $this->createForm(SearchForm::class);
+        $searchform = $form->handleRequest($request);  // je demande au formulaire de traiter la requête
         // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
-        $products = $repository->findSearch($data);
+        if($form->isSubmitted() && $form->isValid()){
+            $products = $repository->findSearch($searchform->get('search')->getData()
+        );
+        }
+        
+        //dump($products);
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
@@ -50,22 +56,4 @@ class ProductController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/search", name="product")
-     */
-    /*
-    public function search(ProductRepository $repository, Request $request): Response
-    {
-        $data = new SearchData();
-        $form = $this->createForm(SearchForm::class, $data);
-        $form->handleRequest($request);  // je demande au formulaire de traiter la requête
-        // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
-        $products = $repository->findSearch($data);
-
-        return $this->render('product/index.html.twig', [
-            'products' => $products,
-            'form' => $form->createView(),
-        ]);
-    }*/
 }
