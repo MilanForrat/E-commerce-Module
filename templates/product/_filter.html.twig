@@ -7,7 +7,7 @@
         <div class="navbar-nav">
             {{ form_start(form, {attr: {class: 'filter_form'}}) }}
 
-            {{ form_row(form.q, {attr: {class: 'filter-search_input'}}) }}  <!-- on personnalise le design du formulaire 'q' étant la variable de la barre de recherche -->
+            {{ form_row(form.search, {attr: {class: 'filter-search_input'}}) }}  <!-- on personnalise le design du formulaire 'search' étant la variable de la barre de recherche -->
         
             <h4 class="filter-categories_title">Catégories</h4>
             {{ form_row(form.categories, {attr: {class: 'filter-categories_input'}}) }}
@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                     {{ form_row(form.max, {attr: {class: 'filter-price-max_input'}}) }}
                 </div>
-            </div>
+            </div>-
         
             <h4 class="filter-promo_title">Promotion</h4>
             <div class="filter-promo_input">
@@ -29,7 +29,7 @@
             
             <div class="submit-buttons">
                 <button type="submit" class="btn btn-primary submit-buttons_filter w-60">Filtrer</button>
-                <button type="reset" class="btn btn-danger submit-buttons_reset ">Effacer les filtres</button>
+                <input type="button" name="reset-form" id="reset-form" onclick="uncheckAll();" class="btn btn-danger submit-buttons_reset" value="Effacer les filtres">
             </div>
             {{ form_end(form) }}
         </div>

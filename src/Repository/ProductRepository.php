@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Data\SearchData;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,7 +25,7 @@ class ProductRepository extends ServiceEntityRepository
      *
      * @return Product[]
      */
-     public function findSearch(SearchData $search): array{    // SearchData est le type de paramètre et que l'on nommera search
+     public function findSearch($search): array{   
         $query = $this
         ->createQueryBuilder('p')
         ->select('c', 'p')              // on met cette requête afin de diminuer le nombre de requêtes individuelles, 
@@ -34,8 +33,9 @@ class ProductRepository extends ServiceEntityRepository
 
         if(!empty($search->q)){    // si ma recherche n'est pas vide, je recupère ma propriété q
             $query = $query
-            ->andWhere('p.name LIKE :q')    // on veut que le nom du produit ressemble à la propriété de recherche q
-            ->setParameter('q', "%{$search->q}%");   // les % permettent les recherches partielles en correspondance avec le mot clé de ma recherche
+            ->Where('p.status = 1')
+            ->andWhere('MATCH_AGAINST(p.name, p.content. p.description) AGAINST(:search boolean)>0')    
+            ->setParameter('search', $search);   // les % permettent les recherches partielles en correspondance avec le mot clé de ma recherche
         }
 
         if(!empty($search->min)){

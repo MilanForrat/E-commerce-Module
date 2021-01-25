@@ -1,12 +1,12 @@
 <?php
 namespace App\Form;
 
-use App\Data\SearchData;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +16,7 @@ class SearchForm extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('q', TextType::class, [
+            ->add('search', SearchType::class, [
                 'label' => false,
                 'required' => false,
                 'attr' => [
@@ -54,9 +54,9 @@ class SearchForm extends AbstractType{
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => SearchData::class, // classe qui représente les données
+            "allow_extra_fields" => true,
             'method' => 'GET',   // on veut passer les paramètres dans l'url pour partager les recherches
-            'csrf_protection' => false // pas de risques lors d'une recherche
+            'csrf_protection' => false, // pas de risques lors d'une recherche
         ]);
     }
 
