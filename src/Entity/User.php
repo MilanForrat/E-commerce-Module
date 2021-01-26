@@ -58,6 +58,46 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $road_number;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $road;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $postal_code;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $phone_number;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $receipt_address;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -144,6 +184,102 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getRoadNumber(): ?int
+    {
+        return $this->road_number;
+    }
+
+    public function setRoadNumber(?int $road_number): self
+    {
+        $this->road_number = $road_number;
+
+        return $this;
+    }
+
+    public function getRoad(): ?string
+    {
+        return $this->road;
+    }
+
+    public function setRoad(?string $road): self
+    {
+        $this->road = $road;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?int
+    {
+        return $this->postal_code;
+    }
+
+    public function setPostalCode(?int $postal_code): self
+    {
+        $this->postal_code = $postal_code;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?int
+    {
+        return $this->phone_number;
+    }
+
+    public function setPhoneNumber(?int $phone_number): self
+    {
+        $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
+    public function getReceiptAddress(): ?string
+    {
+        return $this->receipt_address;
+    }
+
+    public function setReceiptAddress(?string $receipt_address): self
+    {
+        $this->receipt_address = $receipt_address;
 
         return $this;
     }
