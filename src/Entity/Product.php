@@ -82,6 +82,11 @@ class Product
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $promo_price;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -227,5 +232,17 @@ class Product
     public function getSlug(): ?string
     {
         return $this->slug;
+    }
+
+    public function getPromoPrice(): ?int
+    {
+        return $this->promo_price;
+    }
+
+    public function setPromoPrice(?int $promo_price): self
+    {
+        $this->promo_price = $promo_price;
+
+        return $this;
     }
 }
