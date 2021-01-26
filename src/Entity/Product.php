@@ -76,6 +76,12 @@ class Product
      */
     private $quantity;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -216,5 +222,10 @@ class Product
         $this->quantity = $quantity;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 }
