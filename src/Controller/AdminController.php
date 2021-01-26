@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Marque;
 use App\Entity\Product;
 use App\Form\CategoryFormType;
+use App\Form\MarqueFormType;
 use App\Form\ProductFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +50,7 @@ class AdminController extends AbstractController
         }
 
 
-        return $this->render('admin/category/ajout.html.twig', [
+        return $this->render('admin/category/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -74,7 +76,32 @@ class AdminController extends AbstractController
         }
 
 
-        return $this->render('admin/product/ajout.html.twig', [
+        return $this->render('admin/product/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+         /**
+     * @Route("/marque/add", name="marque_add")
+     */
+    public function addMarque(Request $request): Response
+    {
+
+        $marque = New Marque;
+
+        $form = $this->createForm(MarqueFormType::class, $marque);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($marque);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_home');
+        }
+
+        return $this->render('admin/marque/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
