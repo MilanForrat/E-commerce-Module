@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Product;
 use App\Form\CategoryFormType;
+use App\Form\ProductFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +49,32 @@ class AdminController extends AbstractController
 
 
         return $this->render('admin/category/ajout.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+     /**
+     * @Route("/product/add", name="product_add")
+     */
+    public function addProduct(Request $request): Response
+    {
+
+        $product = New Product;
+
+        $form = $this->createForm(ProductFormType::class, $product);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_home');
+        }
+
+
+        return $this->render('admin/product/ajout.html.twig', [
             'form' => $form->createView(),
         ]);
     }
