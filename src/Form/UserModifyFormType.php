@@ -4,17 +4,16 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+class UserModifyFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -39,35 +38,41 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Saisissez votre nom'
                 ]
             ])
-            ->add('email', EmailType::class, [
-                'label' => 'Votre Email',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir votre adresse email',
-                    ])],
+            ->add('road_number', TextareaType::class, [
+                'label' => 'Numéro de voie',
                 'attr' => [
-                    'placeholder' => 'Saisissez votre email'
+                    'placeholder' => 'N°...',
+                    'rows' => 1,
                 ]
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
+            ->add('road', TypeTextType::class, [
+                'label' => 'Nom de la voie',
                 'attr' => [
-                    'placeholder' => 'Saisissez votre mot de passe'
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuille entrer un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit au minimum contenir {{ limit }} caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
+                    'placeholder' => 'Saisissez le nom de la voie'
+                ]
             ])
+            ->add('postal_code', TextareaType::class, [
+                'label' => 'Code postal',
+                'attr' => [
+                    'rows' => 1,
+                ]
+            ])
+            ->add('city', TypeTextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('phone_number', TextareaType::class, [
+                'label' => 'Numéro de téléphone',
+                'attr' => [
+                    'rows' => 1,
+                ]
+            ])
+            ->add('receipt_address', TextareaType::class, [
+                'label' => 'Précisez votre adresse de facturation',
+                'attr' => [
+                    'rows' => 1,
+                ]
+            ])
+            ->add('Valider', SubmitType::class)
         ;
     }
 

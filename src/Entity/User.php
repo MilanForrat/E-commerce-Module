@@ -45,7 +45,7 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      * @Assert\Length(
      * min = 8,
-     * max = 50,
+     * max = 4096,
      * minMessage = "Votre mot de passe doit contenir au minimum {{ limit }} caractères.",
      * maxMessage = "Votre mot de passe ne doit pas contenir plus de {{ limit }} caractères.",
      * allowEmptyString = false
@@ -60,16 +60,31 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Regex(
+    * pattern="#^/\d/#",
+    * match=false,
+    * message="Vous ne pouvez mettre de chiffres dans cette saisie"
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Regex(
+     * pattern="#^/\d/#",
+     * match=false,
+     * message="Vous ne pouvez mettre de chiffres dans cette saisie"
+     * )
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=8, nullable=true)
+     * @Assert\Regex(
+     * pattern="/^[0-9]*$/",
+     * match=true,
+     * message="Vous ne pouvez mettre de lettres dans cette saisie"
+     * )
      */
     private $road_number;
 
@@ -79,17 +94,32 @@ class User implements UserInterface
     private $road;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=5, nullable=true)
+     * @Assert\Regex(
+     * pattern="/^[0-9]*$/",
+     * match=true,
+     * message="Vous ne pouvez mettre de lettres dans cette saisie"
+     * )
      */
     private $postal_code;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     * pattern="#^/\d/#",
+     * match=false,
+     * message="Vous ne pouvez mettre de chiffres dans cette saisie"
+     * )
      */
     private $city;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     * pattern="/^[0-9]*$/",
+     * match=true,
+     * message="Vous ne pouvez mettre de lettres dans cette saisie"
+     * )
      */
     private $phone_number;
 
@@ -212,12 +242,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoadNumber(): ?int
+    public function getRoadNumber(): ?string
     {
         return $this->road_number;
     }
 
-    public function setRoadNumber(?int $road_number): self
+    public function setRoadNumber(?string $road_number): self
     {
         $this->road_number = $road_number;
 
@@ -236,12 +266,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPostalCode(): ?int
+    public function getPostalCode(): ?string
     {
         return $this->postal_code;
     }
 
-    public function setPostalCode(?int $postal_code): self
+    public function setPostalCode(?string $postal_code): self
     {
         $this->postal_code = $postal_code;
 
@@ -260,12 +290,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(?int $phone_number): self
+    public function setPhoneNumber(?string $phone_number): self
     {
         $this->phone_number = $phone_number;
 
