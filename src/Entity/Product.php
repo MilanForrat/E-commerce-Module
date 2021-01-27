@@ -87,6 +87,12 @@ class Product
      */
     private $promo_price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $marque;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -242,6 +248,18 @@ class Product
     public function setPromoPrice(?int $promo_price): self
     {
         $this->promo_price = $promo_price;
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): self
+    {
+        $this->marque = $marque;
 
         return $this;
     }
