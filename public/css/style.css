@@ -179,3 +179,54 @@ a:hover{
   width: 50%;
   margin: 0.2rem
 }
+/*    PROFILE     */
+.profile{
+  color: lightgoldenrodyellow;
+}
+.profile-ul_li{
+ 
+}
+.profile-ul{
+  list-style: none;
+}
+.profile_hr{
+  height: 5px !important;
+}
+.profile_title{
+
+}
+/* PROFILE LOGIN */
+.profile-login{
+  margin: auto;
+  color: lightgoldenrodyellow;
+}
+.profile-login-password_input{
+  width: 15rem;
+}
+.profile-login-email_input{
+  width: 25rem;
+  margin-bottom: 0.5rem;
+}
+.profile-login-email_label, .profile-login-password_label{
+  color: lightgoldenrodyellow;
+}
+.profile-login-submit_input{
+  margin-top: 1rem;
+}
+.profile-login-reset-password_input{
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+}
+/*   PROFILE REGISTER     */ 
+.profile-register{
+  margin: auto;
+  color: lightgoldenrodyellow;
+}
+.profile-register-submit_input{
+  margin-top: 1rem;
+  margin-left: 1.6rem;
+}
+.profile-register input{
+  width: 25rem;
+  margin-bottom: 0.5rem;
+}

@@ -71,7 +71,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException('L\'email n\'est pas reconnu par le site');
         }
 
         return $user;
@@ -95,7 +95,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-
+        // NOTE: ajouter un flash message de bienvenue ?
         return new RedirectResponse($this->urlGenerator->generate('app_home'));  // je choisis de me rediriger vers l'accueil lorsque je serai connecté
     }
 
