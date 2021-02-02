@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,6 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -40,7 +45,7 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      * @Assert\Length(
      * min = 8,
-     * max = 50,
+     * max = 4096,
      * minMessage = "Votre mot de passe doit contenir au minimum {{ limit }} caractères.",
      * maxMessage = "Votre mot de passe ne doit pas contenir plus de {{ limit }} caractères.",
      * allowEmptyString = false
@@ -54,19 +59,74 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=100)
+     * @Assert\Regex(
+    * pattern="#^/\d/#",
+    * match=false,
+    * message="Vous ne pouvez mettre de chiffres dans cette saisie"
+     * )
      */
-    private $createdAt;
+    private $firstname;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="string", length=100)
+     * @Assert\Regex(
+     * pattern="#^/\d/#",
+     * match=false,
+     * message="Vous ne pouvez mettre de chiffres dans cette saisie"
+     * )
      */
-    private $updatedAt;
+    private $lastname;
 
-    public function __construct()
-    {
-        $this->createdAt = new DateTime();
-    }
+    /**
+     * @ORM\Column(type="string", length=8, nullable=true)
+     * @Assert\Regex(
+     * pattern="/^[0-9]*$/",
+     * match=true,
+     * message="Vous ne pouvez mettre de lettres dans cette saisie"
+     * )
+     */
+    private $road_number;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $road;
+
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true)
+     * @Assert\Regex(
+     * pattern="/^[0-9]*$/",
+     * match=true,
+     * message="Vous ne pouvez mettre de lettres dans cette saisie"
+     * )
+     */
+    private $postal_code;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     * pattern="#^/\d/#",
+     * match=false,
+     * message="Vous ne pouvez mettre de chiffres dans cette saisie"
+     * )
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     * pattern="/^[0-9]*$/",
+     * match=true,
+     * message="Vous ne pouvez mettre de lettres dans cette saisie"
+     * )
+     */
+    private $phone_number;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $receipt_address;
 
     public function getId(): ?int
     {
@@ -158,27 +218,100 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getFirstname(): ?string
     {
-        return $this->createdAt;
+        return $this->firstname;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setFirstname(string $firstname): self
     {
-        $this->createdAt = $createdAt;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getLastname(): ?string
     {
-        return $this->updatedAt;
+        return $this->lastname;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setLastname(string $lastname): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->lastname = $lastname;
 
         return $this;
     }
+
+    public function getRoadNumber(): ?string
+    {
+        return $this->road_number;
+    }
+
+    public function setRoadNumber(?string $road_number): self
+    {
+        $this->road_number = $road_number;
+
+        return $this;
+    }
+
+    public function getRoad(): ?string
+    {
+        return $this->road;
+    }
+
+    public function setRoad(?string $road): self
+    {
+        $this->road = $road;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postal_code;
+    }
+
+    public function setPostalCode(?string $postal_code): self
+    {
+        $this->postal_code = $postal_code;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phone_number;
+    }
+
+    public function setPhoneNumber(?string $phone_number): self
+    {
+        $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
+    public function getReceiptAddress(): ?string
+    {
+        return $this->receipt_address;
+    }
+
+    public function setReceiptAddress(?string $receipt_address): self
+    {
+        $this->receipt_address = $receipt_address;
+
+        return $this;
+    }
+
 }

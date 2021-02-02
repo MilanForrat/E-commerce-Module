@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use DateTime;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    use TimestampableEntity;
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -31,19 +35,25 @@ class Category
     private $products;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"name"})
      */
-    private $createdAt;
+    private $slug;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="categories")
      */
-    private $updatedAt;
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="parent")
+     */
+    private $categories;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->createdAt = new DateTime();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,27 +110,60 @@ class Category
         return $this->name;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getSlug(): ?string
     {
-        return $this->createdAt;
+        return $this->slug;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function getParent(): ?self
     {
-        $this->createdAt = $createdAt;
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(self $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(self $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getParent() === $this) {
+                $category->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
+        return $this->updated_at;
     }
 }

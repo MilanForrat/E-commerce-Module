@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use DateTime;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -63,24 +67,35 @@ class Product
     private $status;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $stock;
 
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $promo_price;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $marque;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-        $this->createdAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -196,30 +211,6 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
     public function getStock(): ?bool
     {
         return $this->stock;
@@ -228,6 +219,47 @@ class Product
     public function setStock(bool $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function getPromoPrice(): ?int
+    {
+        return $this->promo_price;
+    }
+
+    public function setPromoPrice(?int $promo_price): self
+    {
+        $this->promo_price = $promo_price;
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): self
+    {
+        $this->marque = $marque;
 
         return $this;
     }

@@ -1,19 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'enregistrer{% endblock %}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-
+<div class="col-6 profile-register">
     <h1>Créer un compte</h1>
 
     {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(registrationForm.lastname) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        <button type="submit" class="btn">S'enregistrer</button>
+        <button type="submit" class="btn btn-lg btn-primary profile-register-submit_input">S'enregistrer</button>
     {{ form_end(registrationForm) }}
+</div>
 {% endblock %}
