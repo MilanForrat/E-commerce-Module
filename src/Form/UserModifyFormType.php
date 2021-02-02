@@ -55,21 +55,27 @@ class UserModifyFormType extends AbstractType
                 'label' => 'Code postal',
                 'attr' => [
                     'rows' => 1,
+                    'placeholder' => 'Saisissez le code postal',
                 ]
             ])
             ->add('city', TypeTextType::class, [
-                'label' => 'Ville'
+                'label' => 'Ville',
+                'attr' => [
+                    'placeholder' => 'Saisissez la ville',
+                ]
             ])
             ->add('phone_number', TextareaType::class, [
                 'label' => 'Numéro de téléphone',
                 'attr' => [
                     'rows' => 1,
+                    'placeholder' => 'Saisissez votre numéro de téléphone',
                 ]
             ])
             ->add('receipt_address', TextareaType::class, [
                 'label' => 'Précisez votre adresse de facturation',
                 'attr' => [
                     'rows' => 1,
+                    'placeholder' => 'Saisissez votre adresse de facturation complète',
                 ]
             ])
             ->add('Valider', SubmitType::class)

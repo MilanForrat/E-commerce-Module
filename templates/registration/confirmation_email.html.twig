@@ -1,7 +1,9 @@
-<h1>Veuillez confirmer la création de votre compte</h1>
-
-<p>
-    Merci de bien vouloir cliquer sur le lien ci-dessous afin d'effectuer une confirmation d'email : <br><br>
-    <a href="{{ signedUrl|raw }}">Confirmer mon adresse email</a>.
-    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
+{% block title %}Confirmation Email{% endblock %}
+<div class="col-6 profile-register">
+    <h3>Veuillez confirmer la création de votre compte E-commerce Module</h3>
+    <p>
+        Merci de bien vouloir cliquer sur le lien ci-dessous afin d'effectuer une confirmation d'email : <br><br>
+        <a href="{{ signedUrl|raw }}">Confirmer mon adresse email</a>.
+        Ce lien expirera dans 1 heure.
+    </p>
+</div>

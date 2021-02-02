@@ -2,51 +2,51 @@
 
 {% block title %}Espace utilisateur{% endblock %}
 {% block body %}
-<div>
-    <h3>Profil de {{ app.user.firstname }} {{app.user.lastname}}</h3>
+<div class="profile">
+    <h3 class="profile_title">profile de {{ app.user.firstname }} {{app.user.lastname}}</h3>
     <h5>Mes informations générales :</h5>
-    <ul>
-        <li>
+    <ul class="profile-ul">
+        <li class="profile-ul_li">
             Nom : {{app.user.lastname}}
         </li>
-        <li>
+        <li class="profile-ul_li">
             Prénom : {{app.user.firstname}}
         </li>
-        <li>
+        <li class="profile-ul_li">
             Email : {{app.user.email}}
         </li>
-        <li>
+        <li class="profile-ul_li">
             Mot de passe : <a href="{{ path('app_forgot_password_request') }}">Modifier mon mot de passe</a>
         </li>
-        <li>
+        <li class="profile-ul_li">
             Numéro de téléphone : {{app.user.phonenumber}}
         </li>
     </ul>
-    <hr>
+    <hr class="profile_hr">
     <h5>Mon adresse de livraison :</h5>
-    <ul>
-        <li>
+    <ul class="profile-ul">
+        <li class="profile-ul_li">
             Numéro de voie : {{app.user.roadnumber}}
         </li>
-        <li>
+        <li class="profile-ul_li">
             Nom de la voie : {{app.user.road}}
         </li>
-        <li>
+        <li class="profile-ul_li">
             Code postal: {{app.user.postalcode}}
         </li>
-        <li>
+        <li class="profile-ul_li">
             Ville : {{app.user.city}}
         </li>
     </ul>
-    <hr>
+    <hr class="profile_hr">
     <h5>Mon adresse de facturation :</h5>
-    <ul>
-        <li>
+    <ul class="profile-ul">
+        <li class="profile-ul_li">
             Adresse de facturation : {{app.user.receiptaddress}}
         </li>
     </ul>
 </div>
 <div>
-    <a href="{{ path('app_user_modify_account') }}">Modifier le profil</a>
+    <a href="{{ path('app_user_modify_account') }}">Modifier le profile</a>
 </div>
 {% endblock %}
