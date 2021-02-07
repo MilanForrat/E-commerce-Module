@@ -1,0 +1,55 @@
+<div class="top-header" id="#top">
+    <div class="sign">
+        <h1 class="top-header_title">E-Shop</h1>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <div class="left_container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-link active">E-Shop</li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('products_liste') }}">Produits</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Catégories
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for c in categories %}
+                <li><a class="dropdown-item" href="{{ path('categories_details', {'id' : c.id} ) }}">{{ c.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Marques
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                {% for m in marques %}
+                <li><a class="dropdown-item" href="#">{{ m.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="right_container">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{ path('app_user') }}"><i class="fas fa-user"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#"><i class="fas fa-shopping-cart"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>

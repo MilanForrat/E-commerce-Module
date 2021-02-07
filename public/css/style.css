@@ -1,6 +1,7 @@
 /*     GENERAL      */
 body{
   background-image: url(../images/background.jpg);
+  color: lightgoldenrodyellow;
 }
 .container{
   margin: 0 3vw 0 3vw;
@@ -22,11 +23,11 @@ body{
 }
 a{
   text-decoration: underline;
-  color: black;
   text-decoration-color: rgba(255, 255, 255, 0.5);
+  color: lightgoldenrodyellow !important;
 }
 a:hover{
-  color: rgb(196, 232, 255);
+  color: rgb(196, 232, 255) !important;
   transition: 0.5s;
 }
 /*     HEADER      */
@@ -39,24 +40,35 @@ a:hover{
   font-style: italic;
   font-family: 'Fugaz One';
   font-size: 5vw;
-  text-shadow: lightgoldenrodyellow 1px 0 10px;
+  text-shadow: black 1px 0 10px;
 }
-.top-header_credits{
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 15vw;
+/*      NAVBAR        */
+nav{
   margin-bottom: 2rem;
-  font-style: italic;
 }
-.top-header_credits a{
-  margin-left: 0.5rem;
-  text-shadow: rgb(255, 255, 255) 1px 0 15px;
+.navbar{
+  background-color: rgb(3, 7, 10, 0.6);
+  text-shadow: rgb(2, 2, 2) 1px 0 10px;
+}
+.navbar .dropdown li{
+  background-color: rgba(4, 52, 87, 0.89);
+}
+.navbar .dropdown li a{
+  text-shadow: black 1px 0 10px;
+  color: white !important;
+}
+.navbar .dropdown li a:hover{
+  background-color: rgba(4, 12, 17, 0.89);
+}
+.navbar .dropdown ul{
+  padding: 0.8rem;
+  background-color: rgba(4, 52, 87, 0.89);
 }
 /*     CARDS      */
 .main{
   grid-area: main;
 }
-/*  NOTE: when using media querries, it's important toput them in the ASC resolution order or else the code won't work the way you want due to vertical lecture */
+/*  NOTE: when using media querries, it's important to put them in the ASC resolution order or else the code won't work the way you want due to vertical lecture */
 @media(min-width: 400px){
   .grid{
     display: grid;
@@ -127,14 +139,14 @@ a:hover{
 /*     FILTERS      */
 .menu{
   grid-area: menu;
-}
+}/*
 @media(min-width: 992px){
   .navbar{
   display: block;
   position: sticky;
   top: 20px;
   }
-}
+}*/
 .filter-categories_title, .filter-prix_title, .filter-promo_title{
   color: lightgoldenrodyellow;
   text-shadow: rgb(0, 0, 0) 1px 0 10px;
@@ -154,11 +166,11 @@ a:hover{
 .filter-price-min_input, .filter-price-max_input, .filter-search_input{
   opacity: 0.9;
   margin-bottom: 0.5rem;
-  background-color: #303030;
+  background-color: rgba(4, 52, 87, 0.89);
   color: lightgoldenrodyellow;
 }
 .filter-price-min_input:focus, .filter-price-max_input:focus, .filter-search_input:focus{
-  background-color: #303030;
+  background-color: rgba(4, 52, 87, 0.89);
   color: lightgoldenrodyellow;
 }
 
@@ -229,4 +241,40 @@ a:hover{
 .profile-register input{
   width: 25rem;
   margin-bottom: 0.5rem;
+}
+/*        FOOTER         */
+.footer{
+  background-color: rgb(3, 7, 10, 0.6);
+  margin-top: 2rem;
+}
+.footer li{
+  color: lightgoldenrodyellow;
+  list-style: none;
+}
+.footer a{
+  color: lightgoldenrodyellow;
+}
+.footer ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer_signature{
+  display: flex;
+  justify-content: center;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  color: lightgoldenrodyellow;
+}
+/*        MAIN      */
+.main-header_h1{
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  text-shadow: black 1px 0 10px;
+}
+.main-header_h3{
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  text-shadow: black 1px 0 10px;
 }

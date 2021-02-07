@@ -65,24 +65,7 @@ class ProductRepository extends ServiceEntityRepository
    }
 
     /**
-    * Paginates the products
-    * @return void
-    */
-    public function getPaginatedProducts($page, $limit){
-            $query = $this->createQueryBuilder('p')   // p pour les produits
-                ->where('p.status = 1')  // status 1 = active product
-                //->andWhere('p.stock =1') // pour plus tard si je mets une fonction stock en bdd
-                //->orderBy('p.createdAt')  // pour une mise en ordre par date de création
-                ->setFirstResult(($page * $limit) - $limit)  // permet de commencer par l'élément 0 : exemple : page = 1 et limit = 10 je fais 1 * 10 - 10 = 0 donc 0 est bien mon premier élément...
-                ->setMaxResults($limit)  // nombre de résultats à retourner
-            ;
-
-            return $query->getQuery()->getResult();
-
-    }
-
-    /**
-     * Returns the nomber of produtcs
+     * Returns the number of produtcs
      */
     public function getTotalProducts(){
         $query= $this->createQueryBuilder('p')
@@ -91,5 +74,18 @@ class ProductRepository extends ServiceEntityRepository
         ;
 
         return $query->getQuery()->getSingleScalarResult();    // permet d'avoir un résultat qui n'est ni un tableau ni un objet (donc soit : int / string ...)
+    }
+
+    public function findTopEight(){
+
+        $queryBuilder = $this->createQueryBuilder('product');
+        $queryBuilder->where('product.status = 1');
+        $queryBuilder->setMaxResults(5);
+        $queryBuilder->orderBy('product.rating');
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+
+
     }
 }

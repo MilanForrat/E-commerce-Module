@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% for detail in categoryById %}
+        {{detail.name}}
+    {% endfor%}
+{% endblock %}
+
+{% block body %}
+catégories détails
+
+{% for detail in categoryById %}
+<p>{{detail.name}}</p>
+{% endfor%}
+
+{% endblock %}

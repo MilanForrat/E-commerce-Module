@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Repository\CategoryRepository;
+use App\Repository\MarqueRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -37,8 +39,11 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-    public function request(Request $request, MailerInterface $mailer): Response
+    public function request(Request $request, MailerInterface $mailer, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository): Response
     {
+        $marques = $marqueRepository->findAll();
+        $categories = $categoryRepository->findAll();
+
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
 
@@ -51,6 +56,8 @@ class ResetPasswordController extends AbstractController
 
         return $this->render('reset_password/request.html.twig', [
             'requestForm' => $form->createView(),
+            'categories' => $categories,
+            'marques' => $marques,
         ]);
     }
 
@@ -59,8 +66,11 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/check-email", name="app_check_email")
      */
-    public function checkEmail(): Response
+    public function checkEmail(CategoryRepository $categoryRepository, MarqueRepository $marqueRepository): Response
     {
+        $marques = $marqueRepository->findAll();
+        $categories = $categoryRepository->findAll();
+
         // We prevent users from directly accessing this page
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
             return $this->redirectToRoute('app_forgot_password_request');
@@ -68,6 +78,8 @@ class ResetPasswordController extends AbstractController
 
         return $this->render('reset_password/check_email.html.twig', [
             'resetToken' => $resetToken,
+            'categories' => $categories,
+            'marques' => $marques,
         ]);
     }
 
@@ -76,8 +88,11 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/reset/{token}", name="app_reset_password")
      */
-    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null): Response
+    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository): Response
     {
+        $marques = $marqueRepository->findAll();
+        $categories = $categoryRepository->findAll();
+
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
             // loaded in a browser and potentially leaking the token to 3rd party JavaScript.
@@ -127,6 +142,8 @@ class ResetPasswordController extends AbstractController
 
         return $this->render('reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
+            'categories' => $categories,
+            'marques' => $marques,
         ]);
     }
 

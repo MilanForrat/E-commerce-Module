@@ -93,9 +93,26 @@ class Product
      */
     private $marque;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="products")
+     */
+    private $orders;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $rating;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="product")
+     */
+    private $ratings;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,6 +277,75 @@ class Product
     public function setMarque(?Marque $marque): self
     {
         $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            $order->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getProduct() === $this) {
+                $rating->setProduct(null);
+            }
+        }
 
         return $this;
     }
