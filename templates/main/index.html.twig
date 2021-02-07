@@ -1,5 +1,35 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
+<h1 class="main-header_h1">Bienvenue dans notre boutique en ligne</h1>
+<h3 class="main-header_h3">Découvrez nos meilleurs ventes :</h3>
+<div class="grid-container">
+    <div class="main">
+        <div class="grid">
+            {% for mainP in productsMain %}
+                <div class="card m-2">
+                    <img src=" {{ mainP.image}} " alt="" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title card-name">{{ mainP.name }}</h5>
+                        <div class="card-price">
+                            {% if mainP.promo %}
+                            <div class="text text-warning card-promo_text col-md-6">En promotion !</div>
+                            {% endif %}
+                            <div class="card-title card-price_number col-md-6">
+                                {{ mainP.price | number_format(0, ',', ' ') }} €
+                            </div>
+                        </div>
+                        <p class="text card-text">{{ mainP.description }}</p>
+                        <div>
+                            {% for mainC in mainP.categories %}  <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
+                            <p class="card-categories">#{{ mainC.name }}</p>
+                            {% endfor %}
+                            <p>Note : {{ mainP.rating }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
