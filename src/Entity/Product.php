@@ -108,6 +108,11 @@ class Product
      */
     private $ratings;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture_url;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -346,6 +351,18 @@ class Product
                 $rating->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        return $this->picture_url;
+    }
+
+    public function setPictureUrl(?string $picture_url): self
+    {
+        $this->picture_url = $picture_url;
 
         return $this;
     }

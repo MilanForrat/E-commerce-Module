@@ -50,6 +50,11 @@ class Category
      */
     private $categories;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture_url;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -165,5 +170,17 @@ class Category
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        return $this->picture_url;
+    }
+
+    public function setPictureUrl(?string $picture_url): self
+    {
+        $this->picture_url = $picture_url;
+
+        return $this;
     }
 }

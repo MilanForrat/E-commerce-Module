@@ -1,7 +1,12 @@
 /*     GENERAL      */
 body{
-  background-image: url(../images/background.jpg);
+  background: url(../images/background-3.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: lightgoldenrodyellow;
+  text-shadow: black 1px 0 10px;
 }
 .container{
   margin: 0 3vw 0 3vw;
@@ -46,6 +51,12 @@ a:hover{
 nav{
   margin-bottom: 2rem;
 }
+.navbar-toggler-icon{
+  color: lightgoldenrodyellow;
+}
+.navbar-nav{
+    margin-left: 2rem;
+}
 .navbar{
   background-color: rgb(3, 7, 10, 0.6);
   text-shadow: rgb(2, 2, 2) 1px 0 10px;
@@ -63,6 +74,9 @@ nav{
 .navbar .dropdown ul{
   padding: 0.8rem;
   background-color: rgba(4, 52, 87, 0.89);
+}
+.top-header_main-title{
+  margin-bottom: 1.5rem;
 }
 /*     CARDS      */
 .main{
@@ -195,17 +209,11 @@ nav{
 .profile{
   color: lightgoldenrodyellow;
 }
-.profile-ul_li{
- 
-}
 .profile-ul{
   list-style: none;
 }
 .profile_hr{
   height: 5px !important;
-}
-.profile_title{
-
 }
 /* PROFILE LOGIN */
 .profile-login{
@@ -276,5 +284,32 @@ nav{
 .main-header_h3{
   font-size: 1.2rem;
   margin-top: 2rem;
+  margin-left: 2rem;
   text-shadow: black 1px 0 10px;
+}
+/*    RESET PASSWORD SEND EMAIL      */
+.reset-password-send-email_form{
+  margin: 3rem auto;
+}
+.reset-password-send-email_submit{
+  margin-left: 3rem;
+}
+  .reset-password-send-email_text{
+  text-align: center;
+  margin: 2rem auto;
+}
+@media(min-width: 800px){
+  .reset-password-send-email_form input{
+    width: 25rem;
+  }
+}
+.reset-password-send-email_form input{
+  background-color: rgb(3, 7, 10, 0.6);
+}
+.reset-password-send-email_form input:focus{
+  background-color: rgb(3, 7, 10, 0.6);
+}
+/*      RESET PASSWORD EMAIL SENT     */
+.reset-password-email-sent_text{
+  text-align: center;
 }
