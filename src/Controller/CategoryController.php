@@ -31,7 +31,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}", name="details")
+     * @Route("/details/{id}", name="details", methods={"GET"}, requirements={"id"="\d+"}))
      */
     public function categoriesDetails($id, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request){
         $marques = $marqueRepository->findAll();
