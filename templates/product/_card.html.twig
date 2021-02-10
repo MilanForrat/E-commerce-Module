@@ -1,5 +1,7 @@
 <div class="card">
-    <img src=" {{ product.image}} " alt="" class="card-img-top">
+    {% for c in product.categories %}
+    <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
+    <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="" class="card-img-top">
     <div class="card-body">
         <h5 class="card-title card-name">{{ product.name }}</h5>
         <div class="card-price">
@@ -12,8 +14,9 @@
         </div>
         <p class="text card-text">{{ product.description }}</p>
         <div>
-            {% for c in product.categories %}  <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-            <p class="card-categories">#{{ c.name }}</p>
+
+            <p class="card-categories"><a href="{{ path('categories_details', {id: c.id} ) }}">#{{ c.name }}</a></p>
+            <p><i class="fas fa-star"></i> Note : {{ product.rating }} / 5 </p>
             {% endfor %}
         </div>
     </div>

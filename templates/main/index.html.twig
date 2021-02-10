@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <h1 class="main-header_h1">Bienvenue dans notre boutique en ligne</h1>
-<h3 class="main-header_h3">Découvrez nos meilleurs ventes :</h3>
+<h3 class="main-header_h3">Découvrez nos meilleures ventes :</h3>
 <div class="grid-container">
     <div class="main">
         <div class="grid">
             {% for mainP in productsMain %}
+            {% for c in mainP.categories %}
                 <div class="card m-2">
-                    <img src=" {{ mainP.image}} " alt="" class="card-img-top">
+                    <img class="card-img" src="{{ asset('images/' ~ c.pictureurl) }}" alt="Photo d'un produit, appartenant à la catégorie : {{ c.pictureurl }}" class="card-img-top">
+            {% endfor %}
                     <div class="card-body">
                         <h5 class="card-title card-name">{{ mainP.name }}</h5>
                         <div class="card-price">
@@ -21,7 +23,7 @@
                         <p class="text card-text">{{ mainP.description }}</p>
                         <div>
                             {% for mainC in mainP.categories %}  <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-                            <p class="card-categories">#{{ mainC.name }}</p>
+                            <p class="card-categories"><a href="{{ path('categories_details', {id: mainC.id} ) }}">#{{ mainC.name }}</a></p>
                             {% endfor %}
                             <p>Note : {{ mainP.rating }}</p>
                         </div>

@@ -131,8 +131,7 @@ nav{
   text-shadow: rgb(0, 0, 0) 1px 0 10px;
 }
 .card{
-  opacity: 0.8;
-  background-color: #303030;
+  background-color: rgb(3, 7, 10, 0.6);
 }
 .card-promo_text{
   font-size: smaller;
@@ -221,11 +220,22 @@ nav{
   color: lightgoldenrodyellow;
 }
 .profile-login-password_input{
-  width: 15rem;
+  background-color: rgb(3, 7, 10, 0.6);
+}
+@media(min-width:800px){
+  .profile-login-email_input{
+    width: 25rem;
+  }
+  .profile-login-password_input{
+    width: 15rem;
+  }
 }
 .profile-login-email_input{
-  width: 25rem;
   margin-bottom: 0.5rem;
+  background-color: rgb(3, 7, 10, 0.6);
+}
+.profile-login-password_input:focus, .profile-login-email_input:focus{
+  background-color: rgb(3, 7, 10, 0.6);
 }
 .profile-login-email_label, .profile-login-password_label{
   color: lightgoldenrodyellow;
@@ -297,6 +307,10 @@ nav{
   .reset-password-send-email_text{
   text-align: center;
   margin: 2rem auto;
+  background-color: rgb(3, 7, 10, 0.6);
+  border-radius: 3%;
+  padding: 1rem;
+  display: inline-block;
 }
 @media(min-width: 800px){
   .reset-password-send-email_form input{
@@ -312,4 +326,11 @@ nav{
 /*      RESET PASSWORD EMAIL SENT     */
 .reset-password-email-sent_text{
   text-align: center;
+}
+/*         MENTIONS LEGALES            */
+.mentions_legales{
+  background-color: rgba(3, 7, 10, 0.192);
+}
+.mentions_legales .card-header{
+  border-bottom: none;
 }
