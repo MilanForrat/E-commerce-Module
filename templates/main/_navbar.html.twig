@@ -1,12 +1,12 @@
 <div class="top-header" id="#top">
     <div class="sign">
         <h1 class="top-header_title">Online~Shop</h1>
-        <h3 class="top-header_main-title">Site en construction (MAJ le 09/02/2021)</h3>
+        <h3 class="top-header_main-title">Site en construction (MAJ le 12/02/2021)</h3>
     </div>
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <div class="left_container">
+      <div class="left-container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,8 +41,17 @@
           </ul>
         </div>
       </div>
-      <div class="right_container">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="middle-container">
+        <ul>
+          <li>
+            {{ form_start(formSearch, {attr: {class: 'search_form'}}) }}
+            {{ form_row(formSearch.search, {attr: {class: 'filter-search_input'}}) }}  <!-- on personnalise le design du formulaire 'search' étant la variable de la barre de recherche -->
+            {{ form_end(formSearch) }}
+          </li>
+        </ul>
+      </div>
+      <div class="right-container">
+        <ul>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{{ path('app_user') }}"><i class="fas fa-user"></i></a>
           </li>

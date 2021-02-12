@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\FilterFormType;
+use App\Form\ProductFiltersType;
 use App\Form\SearchForm;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
@@ -29,16 +31,27 @@ class ProductController extends AbstractController
         $categories = $categoryRepository->findAll();
         $products = $repository->findBy(['status' => 1]);
 
-        $form = $this->createForm(SearchForm::class);
-        $searchform = $form->handleRequest($request);  // je demande au formulaire de traiter la requête
+        $formFilter = $this->createForm(ProductFiltersType::class);
+        $filterForm = $formFilter->handleRequest($request);  // je demande au formulaire de traiter la requête
         
-        if($form->isSubmitted() && $form->isValid()){
+        if($formFilter->isSubmitted() && $formFilter->isValid()){
+            $filteredProducts = $repository->findWithFilters($filterForm->get('categories')->getData()
+        );
+        }
+
+        $formSearch = $this->createForm(SearchForm::class);
+        $searchform = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
+
+        // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
             $searchedProducts = $repository->findSearch($searchform->get('search')->getData()
         );
         }
 
         return $this->render('product/index.html.twig', [
-            'form' => $form->createView(),
+            'formFilter' => $formFilter->createView(),
+            'formSearch' => $formSearch->createView(),
             'products' => $products, 
             'categories' => $categories,
             'marques' => $marques,

@@ -1,34 +1,47 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <h1 class="main-header_h1">Bienvenue dans notre boutique en ligne</h1>
-<h3 class="main-header_h3">Découvrez nos meilleures ventes :</h3>
 <div class="grid-container">
     <div class="main">
+        {% if app.request %}
+            <h3 class="main-header_h3">Résultats de la recherche :</h3>
+            <hr>
+            <div class="grid">
+                {% for product in products %}
+                    {% include 'product/_card.html.twig' with {product: product} only %}
+                {% endfor %}
+            </div>
+            <hr>
+        {%endif %}
+        <h3 class="main-header_h3">Découvrez nos meilleures ventes :</h3>
         <div class="grid">
             {% for mainP in productsMain %}
             {% for c in mainP.categories %}
-                <div class="card m-2">
-                    <img class="card-img" src="{{ asset('images/' ~ c.pictureurl) }}" alt="Photo d'un produit, appartenant à la catégorie : {{ c.pictureurl }}" class="card-img-top">
-            {% endfor %}
-                    <div class="card-body">
-                        <h5 class="card-title card-name">{{ mainP.name }}</h5>
-                        <div class="card-price">
-                            {% if mainP.promo %}
-                            <div class="text text-warning card-promo_text col-md-6">En promotion !</div>
-                            {% endif %}
-                            <div class="card-title card-price_number col-md-6">
-                                {{ mainP.price | number_format(0, ',', ' ') }} €
-                            </div>
-                        </div>
-                        <p class="text card-text">{{ mainP.description }}</p>
-                        <div>
-                            {% for mainC in mainP.categories %}  <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-                            <p class="card-categories"><a href="{{ path('categories_details', {id: mainC.id} ) }}">#{{ mainC.name }}</a></p>
-                            {% endfor %}
-                            <p>Note : {{ mainP.rating }}</p>
+            <div class="card m-2">
+                <img class="card-img" src="{{ asset('images/' ~ c.pictureurl) }}"
+                    alt="Photo d'un produit, appartenant à la catégorie : {{ c.pictureurl }}" class="card-img-top">
+                {% endfor %}
+                <div class="card-body">
+                    <h5 class="card-title card-name">{{ mainP.name }}</h5>
+                    <div class="card-price">
+                        {% if mainP.promo %}
+                        <div class="text text-warning card-promo_text col-md-6">En promotion !</div>
+                        {% endif %}
+                        <div class="card-title card-price_number col-md-6">
+                            {{ mainP.price | number_format(0, ',', ' ') }} €
                         </div>
                     </div>
+                    <p class="text card-text">{{ mainP.description }}</p>
+                    <div>
+                        {% for mainC in mainP.categories %}
+                        <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
+                        <p class="card-categories"><a
+                                href="{{ path('categories_details', {id: mainC.id} ) }}">#{{ mainC.name }}</a></p>
+                        {% endfor %}
+                        <p>Note : {{ mainP.rating }}</p>
+                    </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>
