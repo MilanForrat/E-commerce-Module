@@ -24,7 +24,7 @@ class MainController extends AbstractController
         $formSearch = $this->createForm(SearchForm::class);
         $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
 
-        dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        //dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
         
         if($formSearch->isSubmitted() && $formSearch->isValid()){
             $products = $productRepository->findSearch($searchRequest->get('search')->getData()
