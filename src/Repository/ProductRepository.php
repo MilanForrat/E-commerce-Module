@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,7 +28,7 @@ class ProductRepository extends ServiceEntityRepository
      public function findSearch($search = null){   
         $query = $this->createQueryBuilder('product');
         $query->where('product.status = 1');
-        dump($search);
+        //dump($search);
         if($search != null){    // si ma recherche n'est pas vide
             $query
             ->andWhere('MATCH_AGAINST (product.name, product.content, product.description) AGAINST (:search boolean)>0')    
@@ -39,35 +40,36 @@ class ProductRepository extends ServiceEntityRepository
 
    /**
     * Returns filter results
+    * @return  Product[]
     */
-    public function findWithFilters($filters){
+    public function findWithFilters(SearchData $data):array{
 
         $query = $this
         ->createQueryBuilder('p')
         ->select('c', 'p')              // on met cette requête afin de diminuer le nombre de requêtes individuelles, 
         ->join('p.categories', 'c');  //et les grouper
 
-        if(!empty($filters->min)){
+        if(!empty($data->min)){
             $query = $query
             ->andWhere('p.price >= :min')    // on veut que le prix du produit soit supérieur ou égal à la valeur minimale passée en requête
-            ->setParameter('min', $filters->min);   // ici pas de % car c'est une référence précise que l'on demande
+            ->setParameter('min', $data->min);
         }
 
-        if(!empty($filters->max)){
+        if(!empty($data->max)){
             $query = $query
             ->andWhere('p.price <= :max')    // on veut que le prix du produit soit inférieur ou égal à la valeur minimale passée en requête
-            ->setParameter('max', $filters->max); 
+            ->setParameter('max', $data->max); 
         }
 
-        if(!empty($filters->promo)){
+        if(!empty($data->promo)){
             $query = $query
             ->andWhere('p.promo = 1');    // on veut afficher les produits en promo (1 car true)
         }
 
-        if (!empty($filters->categories)) {
+        if (!empty($data->categories)) {
             $query=$query
             ->andWhere('c.id IN (:categories)')  // on veut afficher les catégories 'c' envoyées par la liste :categories
-            ->setParameter('categories', $filters->categories);  // j'indique que mon paramètre categories correspondant à la liste de recherche categories
+            ->setParameter('categories', $data->categories);  // j'indique que mon paramètre categories correspondant à la liste de recherche categories
         }
 
         return $query = $query->getQuery()->getResult();

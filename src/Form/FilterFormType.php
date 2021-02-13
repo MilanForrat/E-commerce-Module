@@ -2,6 +2,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Data\SearchData;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -45,14 +46,14 @@ class FilterFormType extends AbstractType{
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            "allow_extra_fields" => true,
-            'method' => 'GET',   // on veut passer les paramètres dans l'url pour partager les recherches
+            'data_class' => SearchData::class,
+            'method' => 'GET',
             'csrf_protection' => false, // pas de risques lors d'une recherche
         ]);
     }
 
     public function getBlockPrefix()
     {
-        return ''; // on retourne une chaine de caractère vide pour avoir l'url la plus propre possible
+        return ''; 
     }
 }

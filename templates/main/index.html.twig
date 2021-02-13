@@ -3,16 +3,6 @@
 <h1 class="main-header_h1">Bienvenue dans notre boutique en ligne</h1>
 <div class="grid-container">
     <div class="main">
-        {% if app.request.query.get('search', null) %}
-            <h3 class="main-header_h3">Résultats de la recherche :</h3>
-            <hr>
-            <div class="grid">
-                {% for product in products %}
-                    {% include 'product/_card.html.twig' with {product: product} only %}
-                {% endfor %}
-            </div>
-            <hr>
-        {% endif %}
         <h3 class="main-header_h3">Découvrez nos meilleures ventes :</h3>
         <div class="grid">
             {% for mainP in productsMain %}

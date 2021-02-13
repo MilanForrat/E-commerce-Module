@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Form\SearchForm;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -39,23 +42,47 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-    public function request(Request $request, MailerInterface $mailer, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository): Response
+    public function request(Request $request, MailerInterface $mailer, CategoryRepository $categoryRepository,ProductRepository $productRepository, MarqueRepository $marqueRepository): Response
     {
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
+        $products = $productRepository->findBy(['status' => 1]);
 
+        $formSearch = $this->createForm(SearchForm::class);
         $form = $this->createForm(ResetPasswordRequestFormType::class);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $this->processSendingPasswordResetEmail(
-                $form->get('email')->getData(),
-                $mailer
+        if($request->isMethod('POST')){
+
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                return $this->processSendingPasswordResetEmail(
+                    $form->get('email')->getData(),
+                    $mailer
+                );
+            }
+        }
+
+        if($request->isMethod('GET')){
+            $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
+
+            // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
+            
+            if($formSearch->isSubmitted() && $formSearch->isValid()){
+                $products = $productRepository->findSearch($searchRequest->get('search')->getData()
             );
+                return $this->render('main/search-results.html.twig', [
+                    'formSearch' => $formSearch->createView(),
+                    'products' => $products,
+                    'categories' => $categories,
+                    'marques' => $marques,
+            ]);
+            }
         }
 
         return $this->render('reset_password/request.html.twig', [
             'requestForm' => $form->createView(),
+            'formSearch' => $formSearch->createView(),
             'categories' => $categories,
             'marques' => $marques,
         ]);
@@ -66,10 +93,27 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/check-email", name="app_check_email")
      */
-    public function checkEmail(CategoryRepository $categoryRepository, MarqueRepository $marqueRepository): Response
+    public function checkEmail(CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, ProductRepository $productRepository, Request $request): Response
     {
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
+        $products = $productRepository->findBy(['status' => 1]);
+
+        $formSearch = $this->createForm(SearchForm::class);
+        $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
+
+        // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $products = $productRepository->findSearch($searchRequest->get('search')->getData()
+        );
+            return $this->render('main/search-results.html.twig', [
+                'formSearch' => $formSearch->createView(),
+                'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
+        ]);
+        }
 
         // We prevent users from directly accessing this page
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
@@ -80,6 +124,7 @@ class ResetPasswordController extends AbstractController
             'resetToken' => $resetToken,
             'categories' => $categories,
             'marques' => $marques,
+            'formSearch' => $formSearch->createView(),
         ]);
     }
 
@@ -88,10 +133,27 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/reset/{token}", name="app_reset_password")
      */
-    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository): Response
+    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, ProductRepository $productRepository): Response
     {
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
+        $products = $productRepository->findBy(['status' => 1]);
+
+        $formSearch = $this->createForm(SearchForm::class);
+        $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
+
+        // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $products = $productRepository->findSearch($searchRequest->get('search')->getData()
+        );
+            return $this->render('main/search-results.html.twig', [
+                'formSearch' => $formSearch->createView(),
+                'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
+        ]);
+        }
 
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being

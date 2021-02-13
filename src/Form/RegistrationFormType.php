@@ -52,6 +52,7 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label' => 'Votre Mot de passe',
                 'mapped' => false,
                 'attr' => [
                     'placeholder' => 'Saisissez votre mot de passe'
@@ -75,6 +76,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'method' => 'POST',
         ]);
     }
 }

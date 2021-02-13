@@ -27,8 +27,14 @@ class MainController extends AbstractController
         //dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
         
         if($formSearch->isSubmitted() && $formSearch->isValid()){
-            $products = $productRepository->findSearch($searchRequest->get('search')->getData()
+            $products = $productRepository->findSearch($searchRequest->get('search')->getData()     
         );
+            return $this->render('main/search-results.html.twig', [
+                'formSearch' => $formSearch->createView(),
+                'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
+        ]);
         }
 
         $productsMain = $productRepository->findTopEight();
