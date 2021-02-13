@@ -21,20 +21,26 @@ class MainController extends AbstractController
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
 
-        $form = $this->createForm(SearchForm::class);
-        $searchform = $form->handleRequest($request);  // je demande au formulaire de traiter la requête
+        $formSearch = $this->createForm(SearchForm::class);
+        $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
 
-        // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        //dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
         
-        if($form->isSubmitted() && $form->isValid()){
-            $searchedProducts = $productRepository->findSearch($searchform->get('search')->getData()
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $products = $productRepository->findSearch($searchRequest->get('search')->getData()     
         );
+            return $this->render('main/search-results.html.twig', [
+                'formSearch' => $formSearch->createView(),
+                'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
+        ]);
         }
 
         $productsMain = $productRepository->findTopEight();
 
         return $this->render('main/index.html.twig', [
-            'form' => $form->createView(),
+            'formSearch' => $formSearch->createView(),
             'productsMain' => $productsMain,
             'products' => $products,
             'categories' => $categories,

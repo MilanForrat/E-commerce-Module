@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Form\SearchForm;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -14,10 +17,12 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository): Response
+    public function login(AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request, ProductRepository $productRepository): Response
     {   
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
+        $products = $productRepository->findBy(['status' => 1]);
+
 
         if ($this->getUser()) {
             return $this->redirectToRoute('app_user');
@@ -27,7 +32,25 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error,            
+
+        $formSearch = $this->createForm(SearchForm::class);
+        $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
+
+        //dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $products = $productRepository->findSearch($searchRequest->get('search')->getData()
+        );
+            return $this->render('main/search-results.html.twig', [
+                'formSearch' => $formSearch->createView(),
+                'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
+        ]);
+        }
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error,
+        'formSearch' => $formSearch->createView(),            
         'categories' => $categories,
         'marques' => $marques,]);
     }

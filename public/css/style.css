@@ -32,7 +32,7 @@ a{
   color: lightgoldenrodyellow !important;
 }
 a:hover{
-  color: rgb(196, 232, 255) !important;
+  color: rgba(253, 249, 0, 0.918) !important;
   transition: 0.5s;
 }
 /*     HEADER      */
@@ -61,19 +61,49 @@ nav{
   background-color: rgb(3, 7, 10, 0.6);
   text-shadow: rgb(2, 2, 2) 1px 0 10px;
 }
+.middle-container ul{ 
+  margin: 1.5rem auto 0 auto;
+}
+.navbar .middle-container ul{
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+@media(max-width: 360px){
+  .middle-container ul{
+    margin-left: 2rem;
+  }
+}
+.right-container ul{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+@media(max-width: 455px){
+  .right-container ul li{
+    justify-content: center;
+    margin: auto 2rem;
+  }
+  .right-container ul{
+    padding: 0rem;
+    margin-left: 15vw;
+  }
+}
 .navbar .dropdown li{
-  background-color: rgba(4, 52, 87, 0.89);
+  background-color: rgba(4, 12, 17, 0.89);;
 }
 .navbar .dropdown li a{
   text-shadow: black 1px 0 10px;
   color: white !important;
 }
 .navbar .dropdown li a:hover{
-  background-color: rgba(4, 12, 17, 0.89);
+  background-color: rgba(255, 251, 0, 0.315);
+  border-radius: 8%;
 }
 .navbar .dropdown ul{
   padding: 0.8rem;
-  background-color: rgba(4, 52, 87, 0.89);
+  background-color: rgba(4, 12, 17, 0.89);;
 }
 .top-header_main-title{
   margin-bottom: 1.5rem;
@@ -110,6 +140,18 @@ nav{
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px;
   }
+}
+.form-control{
+  color: lightgoldenrodyellow !important;
+}
+.form-control:focus, .form-check-input:focus, .form-check-input:checked {
+  border-color: lightgoldenrodyellow;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px lightgoldenrodyellow;
+  background-color: rgb(85, 87, 0);
+}
+.card:hover{
+  transform: scale(1.05);
+  transition: 0.5s;
 }
 .card-name{
   text-align: center;
@@ -179,11 +221,11 @@ nav{
 .filter-price-min_input, .filter-price-max_input, .filter-search_input{
   opacity: 0.9;
   margin-bottom: 0.5rem;
-  background-color: rgba(4, 52, 87, 0.89);
+  background-color: rgb(3, 7, 10, 0.6);
   color: lightgoldenrodyellow;
 }
 .filter-price-min_input:focus, .filter-price-max_input:focus, .filter-search_input:focus{
-  background-color: rgba(4, 52, 87, 0.89);
+  background-color: rgb(3, 7, 10, 0.6);
   color: lightgoldenrodyellow;
 }
 
@@ -216,7 +258,8 @@ nav{
 }
 /* PROFILE LOGIN */
 .profile-login{
-  margin: auto;
+  display: flex;
+  justify-content: center;
   color: lightgoldenrodyellow;
 }
 .profile-login-password_input{
@@ -227,17 +270,21 @@ nav{
     width: 25rem;
   }
   .profile-login-password_input{
-    width: 15rem;
+    width: 18rem;
   }
 }
-.profile-login-email_input{
-  margin-bottom: 0.5rem;
+.profile-login-email_input, .registration-form input{
+  margin-bottom: 1.2rem;
   background-color: rgb(3, 7, 10, 0.6);
 }
-.profile-login-password_input:focus, .profile-login-email_input:focus{
+.profile-login-password_input:focus, .profile-login-email_input:focus, .registration-form input:focus{
   background-color: rgb(3, 7, 10, 0.6);
 }
-.profile-login-email_label, .profile-login-password_label{
+.profile-login-password_input::placeholder, .profile-login-email_input::placeholder, .registration-form input::placeholder{
+  color: lightgoldenrodyellow;
+  opacity: 0.5;
+}
+.profile-login-email_label, .profile-login-password_label, .registration-form input label{
   color: lightgoldenrodyellow;
 }
 .profile-login-submit_input{
@@ -249,8 +296,15 @@ nav{
 }
 /*   PROFILE REGISTER     */ 
 .profile-register{
-  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   color: lightgoldenrodyellow;
+}
+.profile-register_form{
+  background-color: rgb(3, 7, 10, 0.6);
+  padding: 1rem;
+  border-radius: 5%;
 }
 .profile-register-submit_input{
   margin-top: 1rem;
@@ -272,10 +326,20 @@ nav{
 .footer a{
   color: lightgoldenrodyellow;
 }
-.footer ul{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+@media(max-width: 550px){
+  .footer ul{
+    text-align: center;
+  }
+  .footer li{
+    padding:  0.5rem;
+  }
+}
+@media(min-width:550px){
+  .footer ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 .footer_signature{
   display: flex;
@@ -324,8 +388,17 @@ nav{
   background-color: rgb(3, 7, 10, 0.6);
 }
 /*      RESET PASSWORD EMAIL SENT     */
+.reset-password-email-sent{
+  display: flex;
+  justify-content: center;
+}
 .reset-password-email-sent_text{
   text-align: center;
+  background-color: rgb(3, 7, 10, 0.6);
+  border-radius: 3%;
+  padding: 1rem;
+  
+  display: inline-block;
 }
 /*         MENTIONS LEGALES            */
 .mentions_legales{

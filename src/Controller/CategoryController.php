@@ -37,7 +37,9 @@ class CategoryController extends AbstractController
         $marques = $marqueRepository->findAll();
         $categories= $categoryRepository->findAll();
         $categoryById = $categoryRepository->find($id);
-        dump($categoryById);
+
+        //dump($categoryById);
+        
         return $this->render('category/details.html.twig', [
             'categoryById' => $categoryById,
             'marques' => $marques,

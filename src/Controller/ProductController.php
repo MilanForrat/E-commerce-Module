@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
+use App\Form\FilterFormType;
+use App\Form\ProductFiltersType;
 use App\Form\SearchForm;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
@@ -23,22 +26,42 @@ class ProductController extends AbstractController
      * @Route("/", name="liste")
      * @return void
      */
-    public function index(ProductRepository $repository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request){
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request){
 
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
-        $products = $repository->findBy(['status' => 1]);
+        $products = $productRepository->findBy(['status' => 1]);
 
-        $form = $this->createForm(SearchForm::class);
-        $searchform = $form->handleRequest($request);  // je demande au formulaire de traiter la requête
-        
-        if($form->isSubmitted() && $form->isValid()){
-            $searchedProducts = $repository->findSearch($searchform->get('search')->getData()
-        );
+        $data = new SearchData();
+
+        $formFilter = $this->createForm(ProductFiltersType::class, $data);
+        $formSearch = $this->createForm(SearchForm::class);
+
+        if ($request->isMethod('GET')) {
+            $formFilter->handleRequest($request);
+            $searchRequest = $formSearch->handleRequest($request);
+
+            if ($formFilter->isSubmitted() && $formFilter->isValid()) {
+                $products = $productRepository->findWithFilters($data);
+                dump($data);
+            }
+
+            if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+                $products = $productRepository->findSearch(
+                    $searchRequest->get('search')->getData()
+                );
+                return $this->render('main/search-results.html.twig', [
+                    'formSearch' => $formSearch->createView(),
+                    'products' => $products,
+                    'categories' => $categories,
+                    'marques' => $marques,
+            ]);
+            }
         }
-
+        
         return $this->render('product/index.html.twig', [
-            'form' => $form->createView(),
+            'formFilter' => $formFilter->createView(),
+            'formSearch' => $formSearch->createView(),
             'products' => $products, 
             'categories' => $categories,
             'marques' => $marques,

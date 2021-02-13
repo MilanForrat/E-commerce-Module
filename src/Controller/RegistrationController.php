@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\SearchForm;
+use App\Repository\CategoryRepository;
+use App\Repository\MarqueRepository;
+use App\Repository\ProductRepository;
 use App\Security\EmailVerifier;
 use App\Security\UserAuthenticator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -28,20 +32,30 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator, CategoryRepository $categoryRepository, ProductRepository $productRepository, MarqueRepository $marqueRepository): Response
     {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+        $marques = $marqueRepository->findAll();
+        $categories = $categoryRepository->findAll();
+        $products = $productRepository->findBy(['status' => 1]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+
+        $user = new User();
+
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $formSearch = $this->createForm(SearchForm::class);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // encode the plain password
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -65,9 +79,29 @@ class RegistrationController extends AbstractController
                 'main' // firewall name in security.yaml
             );
         }
+        
+        if ($request->isMethod('GET')) {
+            $searchRequest = $formSearch->handleRequest($request);
+
+            if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+                $products = $productRepository->findSearch(
+                    $searchRequest->get('search')->getData()
+                );
+                return $this->render('main/search-results.html.twig', [
+                    'formSearch' => $formSearch->createView(),
+                    'products' => $products,
+                    'categories' => $categories,
+                    'marques' => $marques,
+            ]);
+            }
+        }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'formSearch' => $formSearch->createView(),
+            'products' => $products,
+            'categories' => $categories,
+            'marques' => $marques,
         ]);
     }
 

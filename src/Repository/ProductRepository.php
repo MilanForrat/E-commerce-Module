@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,47 +23,57 @@ class ProductRepository extends ServiceEntityRepository
 
     /**
      * Gets all the products linked to a search
-     *
-     * @return Product[]
+     * @return void 
      */
-     public function findSearch($search): array{   
+     public function findSearch($search = null){   
+        $query = $this->createQueryBuilder('product');
+        $query->where('product.status = 1');
+        //dump($search);
+        if($search != null){    // si ma recherche n'est pas vide
+            $query
+            ->andWhere('MATCH_AGAINST (product.name, product.content, product.description) AGAINST (:search boolean)>0')    
+            ->setParameter('search', $search);  
+        }
+
+        return $query->getQuery()->getResult();
+   }
+
+   /**
+    * Returns filter results
+    * @return  Product[]
+    */
+    public function findWithFilters(SearchData $data):array{
+
         $query = $this
         ->createQueryBuilder('p')
         ->select('c', 'p')              // on met cette requête afin de diminuer le nombre de requêtes individuelles, 
         ->join('p.categories', 'c');  //et les grouper
 
-        if(!empty($search->q)){    // si ma recherche n'est pas vide, je recupère ma propriété q
-            $query = $query
-            ->Where('p.status = 1')
-            ->andWhere('MATCH_AGAINST(p.name, p.content. p.description) AGAINST(:search boolean)>0')    
-            ->setParameter('search', $search);   // les % permettent les recherches partielles en correspondance avec le mot clé de ma recherche
-        }
-
-        if(!empty($search->min)){
+        if(!empty($data->min)){
             $query = $query
             ->andWhere('p.price >= :min')    // on veut que le prix du produit soit supérieur ou égal à la valeur minimale passée en requête
-            ->setParameter('min', $search->min);   // ici pas de % car c'est une référence précise que l'on demande
+            ->setParameter('min', $data->min);
         }
 
-        if(!empty($search->max)){
+        if(!empty($data->max)){
             $query = $query
             ->andWhere('p.price <= :max')    // on veut que le prix du produit soit inférieur ou égal à la valeur minimale passée en requête
-            ->setParameter('max', $search->max); 
+            ->setParameter('max', $data->max); 
         }
 
-        if(!empty($search->promo)){
+        if(!empty($data->promo)){
             $query = $query
             ->andWhere('p.promo = 1');    // on veut afficher les produits en promo (1 car true)
         }
 
-        if (!empty($search->categories)) {
+        if (!empty($data->categories)) {
             $query=$query
             ->andWhere('c.id IN (:categories)')  // on veut afficher les catégories 'c' envoyées par la liste :categories
-            ->setParameter('categories', $search->categories);  // j'indique que mon paramètre categories correspondant à la liste de recherche categories
+            ->setParameter('categories', $data->categories);  // j'indique que mon paramètre categories correspondant à la liste de recherche categories
         }
 
         return $query = $query->getQuery()->getResult();
-   }
+    }
 
     /**
      * Returns the number of produtcs

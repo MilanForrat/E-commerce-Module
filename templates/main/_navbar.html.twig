@@ -1,12 +1,15 @@
 <div class="top-header" id="#top">
     <div class="sign">
         <h1 class="top-header_title">Online~Shop</h1>
-        <h3 class="top-header_main-title">Site en construction (MAJ le 09/02/2021)</h3>
+        <h3 class="top-header_main-title">Site en construction (MAJ le 13/02/2021)</h3>
+        {% if app.user %}
+        <h6>Bonjour, {{app.user.firstname }}</h6>>
+        {% endif %}
     </div>
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <div class="left_container">
+      <div class="left-container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,13 +44,31 @@
           </ul>
         </div>
       </div>
-      <div class="right_container">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{ path('app_user') }}"><i class="fas fa-user"></i></a>
+      <div class="middle-container">
+        <ul>
+          <li>
+            {{ form_start(formSearch, {attr: {class: 'search_form'}}) }}
+            {{ form_row(formSearch.search, {attr: {class: 'filter-search_input'}}) }}  <!-- on personnalise le design du formulaire 'search' étant la variable de la barre de recherche -->
+            {{ form_end(formSearch) }}
           </li>
+        </ul>
+      </div>
+      <div class="right-container">
+        <ul>
+          {% if app.user %}
+            <li class="nav-item">
+              <a data-toggle="tooltip" data-placement="bottom" title="Se déconnecter" class="nav-link" aria-current="page" href="{{ path('app_logout') }}"><i class="fas fa-user-times"></i></a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a data-toggle="tooltip" data-placement="bottom" title="S'inscrire" class="nav-link" href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i></a>
+            </li>
+            <li class="nav-item">
+              <a data-toggle="tooltip" data-placement="bottom" title="Se connecter" class="nav-link" aria-current="page" href="{{ path('app_user') }}"><i class="fas fa-user"></i></a>
+            </li>
+          {% endif %}
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#"><i class="fas fa-shopping-cart"></i></a>
+            <a data-toggle="tooltip" data-placement="bottom" title="Mon panier" class="nav-link" aria-current="page" href="#"><i class="fas fa-shopping-cart"></i></a>
           </li>
         </ul>
       </div>
