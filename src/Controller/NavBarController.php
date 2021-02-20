@@ -3,20 +3,23 @@
 namespace App\Controller;
 
 use App\Form\SearchForm;
+use App\Repository\CategoryRepository;
+use App\Repository\MarqueRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MainController extends AbstractController
+class NavBarController extends AbstractController
 {
     /**
-     * @Route("/", name="app_home")
+     * @Route("/navbar", name="navbar")
      */
-    public function index(ProductRepository $productRepository, Request $request)
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request)
     {
         $products = $productRepository->findBy(['status' => 1]);
-        $productsMain = $productRepository->findTopEight();
+        $marques = $marqueRepository->findAll();
+        $categories = $categoryRepository->findAll();
 
         $formSearch = $this->createForm(SearchForm::class);
         $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
@@ -29,11 +32,19 @@ class MainController extends AbstractController
             return $this->render('main/search-results.html.twig', [
                 'formSearch' => $formSearch->createView(),
                 'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
         ]);
         }
 
-        return $this->render('main/index.html.twig', [
+        $productsMain = $productRepository->findTopEight();
+
+        return $this->render('navbar/_navbar.html.twig', [
+            'formSearch' => $formSearch->createView(),
             'productsMain' => $productsMain,
+            'products' => $products,
+            'categories' => $categories,
+            'marques' => $marques,
         ]);
     }
 }
