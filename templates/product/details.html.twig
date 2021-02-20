@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}Online~Shop{% endblock %}
+{% block body %}
+    {% for product in productById %}
+        <div class="card-product-detail">
+            <div class="card col-11 col-sm-10 col-lg-8">
+                {% for c in product.categories %}
+                <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
+                <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title card-name">{{ product.name }}</h5>
+                    <div class="card-price">
+                        {% if product.promo %}
+                        <div class="text text-warning card-promo_text col-md-6">En promotion !</div>
+                        {% endif %}
+                        <div class="card-title card-price_number col-md-6">
+                            {{ product.price | number_format(0, ',', ' ') }} €
+                        </div>
+                    </div>
+                    <h6>En quelques mots : </h6>
+                    <p class="text card-text">{{ product.description }}</p>
+                    <hr>
+                    <h6>Description complète du produit : </h6>
+                    <p>{{ product.content }}</p>
+                    <hr>
+                    <div>
+                        <p class="card-categories"><a href="{{ path('categories_details', {id: c.id} ) }}">#{{ c.name }}</a></p>
+                        <hr>
+                        <p><i class="fas fa-star"></i> Note : {{ product.rating }} / 5 </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}

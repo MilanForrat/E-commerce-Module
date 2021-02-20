@@ -68,4 +68,38 @@ class ProductController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/details/{id}", name="detail", requirements={"id"="\d+"}))
+     * @return void
+     */
+    public function details($id, ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request){
+
+        $productById = $productRepository->viewById($id);
+        $marques = $marqueRepository->findAll();
+        $categories = $categoryRepository->findAll();
+
+        $formSearch = $this->createForm(SearchForm::class);
+        $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
+
+        //dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $products = $productRepository->findSearch($searchRequest->get('search')->getData()     
+        );
+            return $this->render('main/search-results.html.twig', [
+                'formSearch' => $formSearch->createView(),
+                'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
+        ]);
+        }
+        dump($productById);
+
+        return $this->render('product/details.html.twig', [
+            'productById' => $productById,
+            'formSearch' => $formSearch->createView(),
+            'categories' => $categories,
+            'marques' => $marques,
+        ]);
+    }
 }

@@ -191,6 +191,15 @@ nav{
   justify-content: center;
   margin-top: 0.5rem;
 }
+/*         CARD DETAIL PRODUCT               */
+.card-product-detail{
+  display: flex;
+  justify-content: center;
+}
+.card-product-detail .card:hover{
+  transform: scale(1);
+  transition: 0.5s;
+}
 /*     FILTERS      */
 .menu{
   grid-area: menu;

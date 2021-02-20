@@ -96,7 +96,17 @@ class ProductRepository extends ServiceEntityRepository
         $query = $queryBuilder->getQuery();
 
         return $query->getResult();
+    }
 
+    /**
+     * Gets the product by its id
+     * @return void
+     */
+    public function viewById($id){
 
+        $queryBuilder = $this->createQueryBuilder('product');
+        $queryBuilder->where($queryBuilder->expr()->eq('product.id', $id));
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
     }
 }

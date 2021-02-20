@@ -1,9 +1,9 @@
 <div class="card">
     {% for c in product.categories %}
     <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-    <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="" class="card-img-top">
+    <a href="{{ path('products_detail', {'id': product.id}) }}"><img src="{{ asset('images/' ~ c.pictureurl) }}" alt="Photo d'un produit, appartenant à la catégorie : {{ c.pictureurl }}" class="card-img-top"></a>
     <div class="card-body">
-        <h5 class="card-title card-name">{{ product.name }}</h5>
+        <a href="{{ path('products_detail', {'id': product.id}) }}"><h5 class="card-title card-name">{{ product.name }}</h5></a>
         <div class="card-price">
             {% if product.promo %}
             <div class="text text-warning card-promo_text col-md-6">En promotion !</div>
@@ -14,8 +14,9 @@
         </div>
         <p class="text card-text">{{ product.description }}</p>
         <div>
-
+            <hr>
             <p class="card-categories"><a href="{{ path('categories_details', {id: c.id} ) }}">#{{ c.name }}</a></p>
+            <hr>
             <p><i class="fas fa-star"></i> Note : {{ product.rating }} / 5 </p>
             {% endfor %}
         </div>
