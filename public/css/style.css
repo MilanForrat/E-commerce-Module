@@ -200,6 +200,10 @@ nav{
   transform: scale(1);
   transition: 0.5s;
 }
+.card-product-detail-img-top{
+  width: 40vw;
+  margin: auto;
+}
 /*     FILTERS      */
 .menu{
   grid-area: menu;

@@ -2,15 +2,24 @@
 
 {% block title %}
     {% for detail in categoryById %}
-        {{detail.name}}
+       Online~Shop {{detail.name}}
     {% endfor%}
 {% endblock %}
 
 {% block body %}
-catégories détails
-
-{% for detail in categoryById %}
-<p>{{detail.name}}</p>
-{% endfor%}
-
+    {% for category in categoryById %}
+        <div class="card-product-detail">
+            <div class="card col-11 col-sm-10 col-lg-8">
+                <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
+                <img src="{{ asset('images/' ~ category.pictureurl) }}" alt="image de la catégorie, correspondant à une photo de {{ category.pictureurl }}" class="card-product-detail-img-top">
+                <div class="card-body">
+                    <h5 class="card-title card-name">{{ category.name }}</h5>
+                    <h6>En quelques mots : </h6>
+                    <p class="text card-text">category.description</p>
+                    <hr>
+                    <p>Nombre de produits associés à la catégorie :</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 {% endblock %}

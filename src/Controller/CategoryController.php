@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SearchForm;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
 use App\Repository\ProductRepository;
@@ -33,15 +34,34 @@ class CategoryController extends AbstractController
     /**
      * @Route("/details/{id}", name="details", methods={"GET"}, requirements={"id"="\d+"}))
      */
-    public function categoriesDetails($id, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request){
+    public function categoriesDetails($id, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, ProductRepository $productRepository, Request $request){
+      
+        $products = $productRepository->findAll();
         $marques = $marqueRepository->findAll();
-        $categories= $categoryRepository->findAll();
-        $categoryById = $categoryRepository->find($id);
+        $categories = $categoryRepository->findAll();
+        $categoryById = $categoryRepository->viewById($id);
 
-        //dump($categoryById);
+
+        $formSearch = $this->createForm(SearchForm::class);
+        $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
+
+        //dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $products = $productRepository->findSearch($searchRequest->get('search')->getData()     
+        );
+            return $this->render('main/search-results.html.twig', [
+                'formSearch' => $formSearch->createView(),
+                'products' => $products,
+                'categories' => $categories,
+                'marques' => $marques,
+        ]);
+        }
+        dump($categoryById);
         
         return $this->render('category/details.html.twig', [
             'categoryById' => $categoryById,
+            'formSearch' => $formSearch->createView(),
             'marques' => $marques,
             'categories' => $categories,
         ]);
