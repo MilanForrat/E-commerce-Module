@@ -3,7 +3,7 @@
         <h1 class="top-header_title">Online~Shop</h1>
         <h3 class="top-header_main-title">Site en construction (MAJ le 13/02/2021)</h3>
         {% if app.user %}
-        <h6>Bonjour, {{app.user.firstname }}</h6>>
+        <h6>Bonjour, {{app.user.firstname }}</h6>
         {% endif %}
     </div>
 </div>
@@ -37,7 +37,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 {% for m in marques %}
-                <li><a class="dropdown-item" href="#">{{ m.name }}</a></li>
+                <li><a class="dropdown-item" href="{{ path('marques_details', {'id' : m.id} ) }}">{{ m.name }}</a></li>
                 {% endfor %}
               </ul>
             </li>
