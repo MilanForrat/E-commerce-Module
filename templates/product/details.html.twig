@@ -6,7 +6,7 @@
             <div class="card col-11 col-sm-10 col-lg-8">
                 {% for c in product.categories %}
                 <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-                <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="" class="card-img-top">
+                <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="" class="card-product-detail-img-top">
                 <div class="card-body">
                     <h5 class="card-title card-name">{{ product.name }}</h5>
                     <div class="card-price">

@@ -69,10 +69,10 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}", name="detail", requirements={"id"="\d+"}))
+     * @Route("/details/{id}", name="detail", methods={"GET"}, requirements={"id"="\d+"}))
      * @return void
      */
-    public function details($id, ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request){
+    public function productDetails($id, ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request){
 
         $productById = $productRepository->viewById($id);
         $marques = $marqueRepository->findAll();
@@ -93,7 +93,7 @@ class ProductController extends AbstractController
                 'marques' => $marques,
         ]);
         }
-        dump($productById);
+        //dump($productById);
 
         return $this->render('product/details.html.twig', [
             'productById' => $productById,
