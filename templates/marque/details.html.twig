@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {% for detail in categoryById %}
+    {% for detail in marqueById %}
        Online~Shop {{detail.name}}
     {% endfor%}
 {% endblock %}
 
 {% block body %}
-    {% for category in categoryById %}
+    {% for marque in marqueById %}
         <div class="card-product-detail">
             <div class="card col-11 col-sm-10 col-lg-8">
                 <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-                <img src="{{ asset('images/' ~ category.pictureurl) }}" alt="image de la catégorie, correspondant à une photo de {{ category.pictureurl }}" class="card-product-detail-img-top">
+                <img src="#" alt="image de la marque, correspondant à une photo de #" class="card-product-detail-img-top">
                 <div class="card-body">
-                    <h5 class="card-title card-name">{{ category.name }}</h5>
+                    <h5 class="card-title card-name">{{ marque.name }}</h5>
                     <h6>En quelques mots : </h6>
-                    <p class="text card-text">category.description</p>
+                    <p class="text card-text">marque.description</p>
                     <hr>
-                    <p>Nombre de produits associés à la catégorie :</p>
+                    <p>Nombre de produits associés à la marque :</p>
                 </div>
             </div>
         </div>

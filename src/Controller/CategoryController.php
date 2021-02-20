@@ -32,7 +32,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}", name="details", methods={"GET"}, requirements={"id"="\d+"}))
+     * @Route("/details/{id}", name="details", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function categoriesDetails($id, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, ProductRepository $productRepository, Request $request){
       
@@ -57,7 +57,7 @@ class CategoryController extends AbstractController
                 'marques' => $marques,
         ]);
         }
-        dump($categoryById);
+        //dump($categoryById);
         
         return $this->render('category/details.html.twig', [
             'categoryById' => $categoryById,
