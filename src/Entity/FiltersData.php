@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping\Entity;
+
 class FiltersData {
     /**
      * list of categories

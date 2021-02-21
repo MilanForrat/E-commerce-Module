@@ -30,5 +30,16 @@ class MarqueRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Returns the number of marques
+     */
+    public function getTotalMarques(){
+        $query= $this->createQueryBuilder('m')
+        ->select('COUNT(m)')     // afin de compter le nombre de marques
+        ;
+
+        return $query->getQuery()->getSingleScalarResult();    // permet d'avoir un résultat qui n'est ni un tableau ni un objet (donc soit : int / string ...)
+    }
 }
 
