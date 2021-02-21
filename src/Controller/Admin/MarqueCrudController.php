@@ -6,6 +6,7 @@ use App\Entity\Marque;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MarqueCrudController extends AbstractCrudController
@@ -21,6 +22,8 @@ class MarqueCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
+            TextareaField::new('description'),
+            TextField::new('pictureurl'),
             DateTimeField::new('createdAt'),
         ];
     }

@@ -10,11 +10,11 @@
         <div class="card-product-detail">
             <div class="card col-11 col-sm-10">
                 <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-                <img src="#" alt="image de la marque, correspondant à une photo de #" class="card-product-detail-img-top">
+                <img src="{{asset('images/Marques/' ~ marque.pictureurl) }}" alt="image de la marque, correspondant à une photo de #" class="card-product-detail-img-top">
                 <div class="card-body">
                     <h5 class="card-title card-name">{{ marque.name }}</h5>
                     <h6>En quelques mots : </h6>
-                    <p class="text card-text">marque.description</p>
+                    <p class="text card-text"> {{ marque.description }}</p>
                     <hr>
                     <div>
                         <p class="text card-text">Découvrir des produits associés à la marque {{ marque.name }} :</p>
