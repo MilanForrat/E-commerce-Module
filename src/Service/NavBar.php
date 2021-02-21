@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class NavBarController extends AbstractController
+class NavBar extends AbstractController
 {
     protected $requestStack;
 
@@ -27,7 +27,7 @@ class NavBarController extends AbstractController
     /**
      * @Route("/navbar", name="navbar")
      */
-    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request)
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, RequestStack $requestStack)
     {
         $products = $productRepository->findBy(['status' => 1]);
         $marques = $marqueRepository->findAll();
