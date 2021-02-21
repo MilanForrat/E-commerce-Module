@@ -27,7 +27,7 @@ class NavBar extends AbstractController
     /**
      * @Route("/navbar", name="navbar")
      */
-    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, RequestStack $requestStack)
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, MarqueRepository $marqueRepository, Request $request)
     {
         $products = $productRepository->findBy(['status' => 1]);
         $marques = $marqueRepository->findAll();
@@ -37,9 +37,9 @@ class NavBar extends AbstractController
 
         $searchRequest = $this->requestStack->getCurrentRequest();  // je demande au formulaire de traiter la requête
 
-        $searchData = $formSearch->handleRequest($searchRequest);
+        //$searchData = $formSearch->handleRequest($searchRequest);
 
-        dump($searchData->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
+        dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés
         
         if($formSearch->isSubmitted() && $formSearch->isValid()){
             $products = $productRepository->findSearch($searchRequest->get('search')->getData()     
