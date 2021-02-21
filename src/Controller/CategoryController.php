@@ -40,6 +40,7 @@ class CategoryController extends AbstractController
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
         $categoryById = $categoryRepository->viewById($id);
+        $countCategories = $categoryRepository->getTotalCategories();
 
 
         $formSearch = $this->createForm(SearchForm::class);
@@ -64,6 +65,7 @@ class CategoryController extends AbstractController
             'formSearch' => $formSearch->createView(),
             'marques' => $marques,
             'categories' => $categories,
+            'countCategories' => $countCategories,
         ]);
     }
 }

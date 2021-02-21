@@ -29,4 +29,15 @@ class CategoryRepository extends ServiceEntityRepository
         $query = $queryBuilder->getQuery();
         return $query->getResult();
     }
+
+     /**
+     * Returns the number of categories
+     */
+    public function getTotalCategories(){
+        $query= $this->createQueryBuilder('c')
+        ->select('COUNT(c)')     // afin de compter le nombre de categories
+        ;
+
+        return $query->getQuery()->getSingleScalarResult();    // permet d'avoir un résultat qui n'est ni un tableau ni un objet (donc soit : int / string ...)
+    }
 }

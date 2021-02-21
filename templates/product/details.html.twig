@@ -3,10 +3,10 @@
 {% block body %}
     {% for product in productById %}
         <div class="card-product-detail">
-            <div class="card col-11 col-sm-10 col-lg-8">
+            <div class="card col-11 col-sm-10">
                 {% for c in product.categories %}
                 <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-                <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="" class="card-product-detail-img-top">
+                <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="Image d'un produit, correspondant à la catégorie : {{ c.pictureurl }}" class="card-product-detail-img-top">
                 <div class="card-body">
                     <h5 class="card-title card-name">{{ product.name }}</h5>
                     <div class="card-price">
@@ -24,8 +24,11 @@
                     <p>{{ product.content }}</p>
                     <hr>
                     <div>
-                        <p class="card-categories"><a href="{{ path('categories_details', {id: c.id} ) }}">#{{ c.name }}</a></p>
-                        <hr>
+                        <p class="text card-text">En savoir plus sur la catégorie : <a href="{{ path('categories_details', {id: c.id} ) }}">#{{ c.name }}</a></p>
+                        <p class="text card-text">Découvrir d'autres produits associés à la catégories {{ c.name }} :</p>
+                    </div>
+                    <hr>
+                    <div>
                         <p><i class="fas fa-star"></i> Note : {{ product.rating }} / 5 </p>
                         {% endfor %}
                     </div>

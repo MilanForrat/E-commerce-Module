@@ -8,7 +8,7 @@
 {% block body %}
     {% for category in categoryById %}
         <div class="card-product-detail">
-            <div class="card col-11 col-sm-10 col-lg-8">
+            <div class="card col-11 col-sm-10">
                 <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
                 <img src="{{ asset('images/' ~ category.pictureurl) }}" alt="image de la catégorie, correspondant à une photo de {{ category.pictureurl }}" class="card-product-detail-img-top">
                 <div class="card-body">
@@ -17,6 +17,17 @@
                     <p class="text card-text">category.description</p>
                     <hr>
                     <p>Nombre de produits associés à la catégorie :</p>
+                    <hr>
+                    <li class="nav-item dropdown" style="list-style: none; display: flex;">
+                        Le site contient {{ countCategories }} <a class="nav-link dropdown-toggle" style="padding: 0; margin-left: 5px;" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                catégories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        {% for c in categories %}
+                        <li><a class="dropdown-item" href="{{ path('categories_details', {'id' : c.id} ) }}">{{ c.name }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </li>
                 </div>
             </div>
         </div>

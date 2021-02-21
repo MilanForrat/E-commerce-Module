@@ -42,6 +42,7 @@ class MarqueController extends AbstractController
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
         $marqueById = $marqueRepository->viewById($id);
+        $countMarques = $marqueRepository->getTotalMarques();
 
 
         $formSearch = $this->createForm(SearchForm::class);
@@ -66,6 +67,7 @@ class MarqueController extends AbstractController
             'formSearch' => $formSearch->createView(),
             'marques' => $marques,
             'categories' => $categories,
+            'countMarques' => $countMarques,
         ]);
 
 

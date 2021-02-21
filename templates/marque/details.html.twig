@@ -8,7 +8,7 @@
 {% block body %}
     {% for marque in marqueById %}
         <div class="card-product-detail">
-            <div class="card col-11 col-sm-10 col-lg-8">
+            <div class="card col-11 col-sm-10">
                 <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
                 <img src="#" alt="image de la marque, correspondant à une photo de #" class="card-product-detail-img-top">
                 <div class="card-body">
@@ -16,7 +16,21 @@
                     <h6>En quelques mots : </h6>
                     <p class="text card-text">marque.description</p>
                     <hr>
-                    <p>Nombre de produits associés à la marque :</p>
+                    <div>
+                        <p class="text card-text">Découvrir des produits associés à la marque {{ marque.name }} :</p>
+                        <p><small>Nombre de produits associés à la marque :</small></p>
+                    </div>
+                    <hr>
+                    <li class="nav-item dropdown" style="list-style: none; display: flex;">
+                        Le site contient {{ countMarques }} <a class="nav-link dropdown-toggle" style="padding: 0; margin-left: 5px;" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                marques
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        {% for m in marques %}
+                        <li><a class="dropdown-item" href="{{ path('marques_details', {'id' : m.id} ) }}">{{ m.name }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </li>
                 </div>
             </div>
         </div>

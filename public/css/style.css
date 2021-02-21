@@ -174,6 +174,7 @@ nav{
 }
 .card{
   background-color: rgb(3, 7, 10, 0.6);
+  border-radius: 2%;
 }
 .card-promo_text{
   font-size: smaller;
@@ -201,20 +202,15 @@ nav{
   transition: 0.5s;
 }
 .card-product-detail-img-top{
-  width: 40vw;
+  width: 80vw;
+  height: 40vh;
+  object-fit: contain;
   margin: auto;
 }
 /*     FILTERS      */
 .menu{
   grid-area: menu;
-}/*
-@media(min-width: 992px){
-  .navbar{
-  display: block;
-  position: sticky;
-  top: 20px;
-  }
-}*/
+}
 .filter-categories_title, .filter-prix_title, .filter-promo_title{
   color: lightgoldenrodyellow;
   text-shadow: rgb(0, 0, 0) 1px 0 10px;
@@ -245,8 +241,23 @@ nav{
 .filter-price-min_input::placeholder, .filter-price-max_input::placeholder, .filter-search_input::placeholder{
   color: lightgoldenrodyellow !important;
 }
-.filter-search_input{
-  margin-bottom: 1.5rem;
+@media(max-width: 456px){
+  .filter-search_input{
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+}
+@media(max-width: 600px){
+  .filter-search_input{
+    margin-bottom: 1.5rem;
+    width: 120%;
+  }
+}
+@media(min-width: 601px){
+  .filter-search_input{
+    margin-bottom: 1.5rem;
+    width: 150%;
+  }
 }
 .submit-buttons{
   display: flex;
