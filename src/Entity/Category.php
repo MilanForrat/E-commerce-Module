@@ -55,6 +55,11 @@ class Category
      */
     private $picture_url;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -180,6 +185,18 @@ class Category
     public function setPictureUrl(?string $picture_url): self
     {
         $this->picture_url = $picture_url;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
