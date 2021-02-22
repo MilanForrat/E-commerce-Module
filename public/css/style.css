@@ -1,6 +1,6 @@
 /*     GENERAL      */
 body{
-  background: url(../images/background-3.jpg);
+  background: url(../images/background.jpg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -206,6 +206,30 @@ nav{
   height: 40vh;
   object-fit: contain;
   margin: auto;
+}
+/*     _SMALL-CARDS     */
+@media(max-width: 899px){
+  .associated-products{
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: auto;
+  }
+}
+@media(min-width: 900px){
+  .associated-products{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: auto;
+  }
+}
+.small-cards_image{
+  margin: 1rem auto;
+  width: 20vw;
+  height: 20vh;
+  object-fit: contain;
+}
+.small-cards{
+  margin: 1rem;
 }
 /*     FILTERS      */
 .menu{

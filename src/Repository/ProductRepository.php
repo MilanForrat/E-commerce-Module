@@ -109,4 +109,23 @@ class ProductRepository extends ServiceEntityRepository
         $query = $queryBuilder->getQuery();
         return $query->getResult();
     }
+
+    /**
+     * Returns $number associated products with categories
+     * @return void
+     */
+    public function getAssociatedProducts($number, $id){
+        $queryBuilder = $this->createQueryBuilder('product');
+        $queryBuilder->innerJoin('product.categories', 'product_categories');
+
+        $queryBuilder->where(
+            $queryBuilder->expr()->eq('product_categories.id', $id)
+        );
+        //dump($number);
+        $queryBuilder->setMaxResults($number);
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
 }

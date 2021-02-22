@@ -32,4 +32,9 @@
             </div>
         </div>
         {% endfor %}
+        <div class="associated-products col-sm-10">
+            {% for associatedProducts in associatedProducts %}
+                {% include 'category/_small-cards.html.twig' with {associatedProducts: associatedProducts, categories : categories} only %}
+            {% endfor %}
+        </div>
 {% endblock %}
