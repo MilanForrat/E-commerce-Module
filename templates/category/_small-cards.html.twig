@@ -1,0 +1,12 @@
+<div class="small-cards">
+    <div class="card">
+        <img src="{{ asset('images/' ~ associatedProducts.pictureurl) }}" alt="image du produit, correspondant à une photo de {{ associatedProducts.pictureurl }}" class="small-cards_image">
+        <div class="card-body">
+            <h5 class="card-title card-name">{{ associatedProducts.name }}</h5>
+            <hr>
+            <div class="card-title card-price_number col-md-6">
+                {{ associatedProducts.price | number_format(0, ',', ' ') }} €
+            </div>
+        </div>
+    </div>
+</div>

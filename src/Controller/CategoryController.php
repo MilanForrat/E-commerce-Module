@@ -41,6 +41,7 @@ class CategoryController extends AbstractController
         $categories = $categoryRepository->findAll();
         $categoryById = $categoryRepository->viewById($id);
         $countCategories = $categoryRepository->getTotalCategories();
+        $associatedProducts = $productRepository->getAssociatedProducts(6, $id);
 
 
         $formSearch = $this->createForm(SearchForm::class);
@@ -59,6 +60,8 @@ class CategoryController extends AbstractController
         ]);
         }
         //dump($categoryById);
+        //dump($associatedProducts);
+        //dump($id);
         
         return $this->render('category/details.html.twig', [
             'categoryById' => $categoryById,
@@ -66,6 +69,7 @@ class CategoryController extends AbstractController
             'marques' => $marques,
             'categories' => $categories,
             'countCategories' => $countCategories,
+            'associatedProducts' => $associatedProducts,
         ]);
     }
 }
