@@ -89,24 +89,19 @@ class Product
     private $marque;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="products")
-     */
-    private $orders;
-
-    /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
-    private $rating;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="product")
-     */
-    private $ratings;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture_url;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="Cproducts")
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $subtitle;
 
     public function __construct()
     {
@@ -269,75 +264,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Order[]
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->removeElement($order)) {
-            $order->removeProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function getRating(): ?int
-    {
-        return $this->rating;
-    }
-
-    public function setRating(int $rating): self
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Rating[]
-     */
-    public function getRatings(): Collection
-    {
-        return $this->ratings;
-    }
-
-    public function addRating(Rating $rating): self
-    {
-        if (!$this->ratings->contains($rating)) {
-            $this->ratings[] = $rating;
-            $rating->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRating(Rating $rating): self
-    {
-        if ($this->ratings->removeElement($rating)) {
-            // set the owning side to null (unless already changed)
-            if ($rating->getProduct() === $this) {
-                $rating->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getPictureUrl(): ?string
     {
         return $this->picture_url;
@@ -346,6 +272,30 @@ class Product
     public function setPictureUrl(?string $picture_url): self
     {
         $this->picture_url = $picture_url;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(string $subtitle): self
+    {
+        $this->subtitle = $subtitle;
 
         return $this;
     }

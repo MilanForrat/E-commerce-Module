@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Connexion  - La Fringuerie Française{% endblock %}
 
 {% block body %}
 <div class="profile-login">
@@ -17,7 +17,7 @@
             {% endif %}
 
             <h1 class="mb-3">Connexion</h1>
-            <h6>Nouveau ? <a href="{{ path('app_register') }}"> S'inscrire</a></h6>
+            <h6>Nouveau ? <a href="{{ path('app_register') }}" class="register-link"> S'inscrire</a></h6>
             <br>
             <label for="inputEmail" class="profile-login-email_label">Email</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control profile-login-email_input" placeholder="Saisissez votre email" required autofocus>
@@ -39,7 +39,7 @@
                 </div>
             #}
         
-        <button class="btn btn-lg btn-primary profile-login-submit_input" type="submit">Se Connecter</button><a href="{{ path('app_forgot_password_request') }}" class="btn btn-lg btn-danger profile-login-reset-password_input">Mot de passe oublié</a> 
+        <button class="btn btn-sm btn-primary profile-login-submit_input" type="submit">Se Connecter</button><a href="{{ path('app_forgot_password_request') }}" class="btn btn-sm btn-danger profile-login-reset-password_input">Mot de passe oublié</a> 
         </form>
     </div>
 </div>

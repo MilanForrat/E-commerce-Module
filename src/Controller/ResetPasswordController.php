@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Form\SearchForm;
+use App\Form\SearchFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
 use App\Repository\ProductRepository;
@@ -48,7 +49,7 @@ class ResetPasswordController extends AbstractController
         $categories = $categoryRepository->findAll();
         $products = $productRepository->findBy(['status' => 1]);
 
-        $formSearch = $this->createForm(SearchForm::class);
+        $formSearch = $this->createForm(SearchFormType::class);
         $form = $this->createForm(ResetPasswordRequestFormType::class);
 
         if($request->isMethod('POST')){
@@ -99,7 +100,7 @@ class ResetPasswordController extends AbstractController
         $categories = $categoryRepository->findAll();
         $products = $productRepository->findBy(['status' => 1]);
 
-        $formSearch = $this->createForm(SearchForm::class);
+        $formSearch = $this->createForm(SearchFormType::class);
         $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
 
         // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés
@@ -139,7 +140,7 @@ class ResetPasswordController extends AbstractController
         $categories = $categoryRepository->findAll();
         $products = $productRepository->findBy(['status' => 1]);
 
-        $formSearch = $this->createForm(SearchForm::class);
+        $formSearch = $this->createForm(SearchFormType::class);
         $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
 
         // dd($data);  je test ma requête et vérifie que je récupère bien mes éléments recherchés

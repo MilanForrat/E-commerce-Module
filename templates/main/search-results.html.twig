@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block title %}Résultats de la Recherche{% endblock %}
+{% block title %}Résultats de la Recherche - La Fringuerie Française{% endblock %}
 {% block body %}
     {% if app.request.query.get('search', null) %}
                 <h3 class="main-header_h3">Résultats de la recherche :</h3>
                 <hr>
                 <div class="grid">
+                    {% if products %}
                     {% for product in products %}
                         {% include 'product/_card.html.twig' with {product: product} only %}
                     {% endfor %}
+                    {% endif %}
                 </div>
                 <hr>
     {% endif %}

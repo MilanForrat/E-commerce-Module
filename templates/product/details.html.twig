@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block title %}Online~Shop{% endblock %}
+
+{% block title %}
+{% for product in productById %}
+    {{product.name}} - La Fringuerie Française
+{% endfor%}
+{% endblock %}
 {% block body %}
     {% for product in productById %}
         <div class="card-product-detail">
-            <div class="card col-11 col-sm-10">
-                {% for c in product.categories %}
+            <div class="card col-11 col-sm-6">
                 <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
-                <img src="{{ asset('images/' ~ c.pictureurl) }}" alt="Image d'un produit, correspondant à la catégorie : {{ c.pictureurl }}" class="card-product-detail-img-top">
+                <img src="{{ asset('images/' ~ product.pictureurl) }}" alt="Image d'un produit, correspondant à la catégorie : {{ product.pictureurl }}" class="card-product-detail-img-top">
                 <div class="card-body">
                     <h5 class="card-title card-name">{{ product.name }}</h5>
                     <div class="card-price">
@@ -17,21 +21,18 @@
                             {{ product.price | number_format(0, ',', ' ') }} €
                         </div>
                     </div>
-                    <h6>En quelques mots : </h6>
-                    <p class="text card-text">{{ product.description }}</p>
+                    <h6>En quelques mots :</h6>
+                    <p class="text">{{ product.description }}</p>
                     <hr>
                     <h6>Description complète du produit : </h6>
                     <p>{{ product.content }}</p>
                     <hr>
-                    <div>
-                        <p class="text card-text">En savoir plus sur la catégorie : <a href="{{ path('categories_details', {id: c.id} ) }}">#{{ c.name }}</a></p>
-                        <p class="text card-text">Découvrir d'autres produits associés à la catégories {{ c.name }} :</p>
-                    </div>
+                    <h6 class="card-title">En savoir plus sur la catégorie : 
+                    </h6>
+                    <a href="{{ path('categories_details', {id: product.category.id} ) }}"><i class="fas fa-arrow-circle-right"></i> #{{ product.category }}
+                    </a>
                     <hr>
-                    <div>
-                        <p><i class="fas fa-star"></i> Note : {{ product.rating }} / 5 </p>
-                        {% endfor %}
-                    </div>
+                    <h6 class="text">Découvrir d'autres produits associés à la catégories {{ product.category }} :</h6>
                 </div>
             </div>
         </div>

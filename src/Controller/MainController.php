@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\SearchForm;
+use App\Form\SearchFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
 use App\Repository\ProductRepository;
@@ -21,7 +21,7 @@ class MainController extends AbstractController
         $marques = $marqueRepository->findAll();
         $categories = $categoryRepository->findAll();
 
-        $formSearch = $this->createForm(SearchForm::class);
+        $formSearch = $this->createForm(SearchFormType::class);
         $searchRequest = $formSearch->handleRequest($request);  // je demande au formulaire de traiter la requête
 
         //dump($searchRequest->get('search')->getData());  //je test ma requête et vérifie que je récupère bien mes éléments recherchés

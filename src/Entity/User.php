@@ -130,11 +130,6 @@ class User implements UserInterface
      */
     private $receipt_address;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
-     */
-    private $orders;
-
     public function __construct()
     {
         $this->orders = new ArrayCollection();

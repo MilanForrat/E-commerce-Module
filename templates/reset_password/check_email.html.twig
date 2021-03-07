@@ -1,12 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réinitialisation de mot de passe{% endblock %}
+{% block title %}Réinitialisation de mot de passe - La Fringuerie Française{% endblock %}
 
 {% block body %}
-<div class="reset-password-email-sent">
+<div class="card reset-password-email-sent">
     <p class="reset-password-email-sent_text">
         Nous vous avons envoyer un email contenant un lien vous permettant de réinitialiser votre mot de passe. Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-        <br> 
-        Si vous ne retrouvez pas ce mail dans votre boite, vérifiez vos courriers indésirables, ou <a href="{{ path('app_forgot_password_request') }}">renvoyez une demande</a>.</p>
+    </p>
+    <hr>
+    <div class="reset-password-email-sent_text">
+        Si vous ne retrouvez pas ce mail dans votre boite:
+        <br>
+        <ul>
+            <li>vérifiez vos courriers indésirables,</li>
+            <li> ou <a href="{{ path('app_forgot_password_request') }}"><i class="fas fa-arrow-circle-right"></i> renvoyez une demande</a>.</li>
+        </ul> 
+    </div>
 </div>
 {% endblock %}
