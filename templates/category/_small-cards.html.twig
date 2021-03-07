@@ -5,7 +5,7 @@
             <a href="{{ path('products_detail', {'id': associatedProducts.id} ) }}"><h5 class="card-title card-name">{{ associatedProducts.name }}</h5></a>
             <p class="text card-text">{{ associatedProducts.subtitle }}</p>
             <div class="card-title card-price_number">
-                {{ associatedProducts.price | number_format(0, ',', ' ') }} €
+                {{ associatedProducts.price | number_format(2, ',', ' ') }} €
             </div>
         </div>
     </div>

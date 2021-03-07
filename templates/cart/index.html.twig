@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier - La fringuerie Française{% endblock %}
+
+{% block body %}
+
+    <div class="card col-12 col-sm-10 mx-auto">
+        <h1 class="main-header_h1">Mon panier</h1>
+        <h3 class="main-header_h3">Retrouvez l'ensemble des produits que vous avez ajoutés à votre panier :</h3>
+        {% if cart|length > 0 %}
+        <div class="cart-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Produit</th>
+                        <th scope="col"></th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- J'initialise une variable Total qui vaut nul, et je vais l'insérer dans ma boucle pour qu'elle calcule -->
+                    {% set total = null %}
+                    <!-- Je boucle mes produits, en sachant que via la variable cart j'ai accès au produit donc je peux faire un product.name derrière -->
+                    {% for productCart in cart %}
+                    <tr>
+                        <th>
+                            <img src="{{ asset('images/' ~ productCart.product.pictureurl) }}"
+                                alt="{{productCart.product.name}}" width="75px" height="auto">
+
+                        </th>
+                        <td>
+                            <span style="font-weight: bold;">{{ productCart.product.name }}</span><br>
+                            <small>{{ productCart.product.subtitle }}</small>
+                        </td>
+                        <td>
+                            <a href="{{path('decrease_to_cart', {'id': productCart.product.id} ) }}"><small><i class="fas fa-minus-circle"></i></small></a>
+                            {{ productCart.quantity }}
+                            <a href="{{path('add_to_cart', {'id': productCart.product.id} ) }}"><small><i class="fas fa-plus-circle"></i></small></a>
+                        </td>
+                        <td>{{ productCart.product.price | number_format(2, ',', ' ') }} €</td>
+                        <td style="font-weight: bold;">
+                            {{ (productCart.product.price * productCart.quantity)  | number_format(2, ',', ' ')}} €</td>
+                        <td><a href="{{path('delete_to_cart', {'id': productCart.product.id} ) }}"><i class="fas fa-trash-alt"></i></a></td>
+                    </tr>
+                    <!-- Je calcule mon total dans ma boucle afin qu'il soit évolutif -->
+                    {% set total = total + (productCart.product.price * productCart.quantity) %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="cart-total">
+                <!-- Afin de calculer le nombre de produits différents dans mon tableau j'appelle la fonction interne |length qui va faire le travail pour moi -->
+                <b>Nombre de produit : {{cart|length}}</b><br>
+                <b>Total du panier : {{ total|number_format(2, ',', ' ') }} €</b><br>
+                <a href="#" class="btn btn-success btn-block mt-2">Valider mon Panier</a>
+            </div>
+        </div>
+        {% else %}
+        <hr>
+        <p style="text-align: center; font-weight: bold;">
+            Votre panier est vide pour le moment. 
+            <br>
+            <a href="{{path('products_liste')}}">Consulter les produits</a>
+        </p>
+        {% endif %}
+    </div>
+
+{% endblock %}
