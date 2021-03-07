@@ -1,39 +1,19 @@
 <nav class="navbar navbar-expand-xl navbar-dark">
-    <div class="container-fluid">
-      <button class="navbar-toggler" style="margin-bottom: 0.5rem;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            {{ form_start(formFilter, {attr: {class: 'filter_form'}}) }}
-       
-            <h4 class="filter-categories_title">Catégories</h4>
-            {{ form_row(formFilter.categories, {attr: {class: 'filter-categories_input'}}) }}
-        
-            <h4 class="filter-prix_title">Prix</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(formFilter.min, {attr: {class: 'filter-price-min_input'}}) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_row(formFilter.max, {attr: {class: 'filter-price-max_input'}}) }}
-                </div>
-            </div>
-        
-            <h4 class="filter-promo_title">Promotion</h4>
-            <div class="filter-promo_input">
-                {{ form_row(formFilter.promo) }}
-            </div>
-            
-            <div class="submit-buttons">
-                <button type="submit" class="btn btn-primary submit-buttons_filter w-60">Filtrer</button>
-                <input type="button" name="reset-form" id="reset-form" onclick="uncheckAll();" class="btn btn-danger submit-buttons_reset" value="Effacer les filtres">
-            </div>
-            {{ form_end(formFilter) }}
-        </div>
+  <div class="container-fluid">
+    <button class="navbar-toggler" style="margin-bottom: 0.5rem;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex flex-column" id="navbarNavAltMarkup">
+      <div class="navbar-nav navbar-product-filter">
+        {{ form(formFilter) }}
+      </div>
+      <hr>
+      <div>
+        {{ form(formCategoryFilter) }}
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
 
 

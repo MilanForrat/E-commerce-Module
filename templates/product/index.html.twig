@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
-{% block title %}Tous nos produits{% endblock %}
+{% block title %}Tous nos produits - La Fringuerie Française{% endblock %}
 {% block body %}
-    <div class="grid-container">
-        <div class="menu">
-            {% include 'product/_filter.html.twig' with {formFilter: formFilter} only %}
-        </div>
-        <div class="main">
-            <div class="grid">
-                {% for product in products %}
-                    {% include 'product/_card.html.twig' with {product: product} only %}
-                {% endfor %}
-            </div>
+<div class="product-container">
+    <div class="menu product-container-filters">
+        {% include 'product/_filter.html.twig' %}
+    </div>
+    <div class="main">
+        <div class="grid">
+            {% for product in products %}
+                {% include 'product/_card.html.twig'%}
+            {% endfor %}
         </div>
     </div>
+</div>
+
 {% endblock %}

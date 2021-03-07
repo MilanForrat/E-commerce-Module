@@ -1,40 +1,29 @@
 {% extends 'base.html.twig' %}
 {% block title %}
     {% for detail in categoryById %}
-       Online~Shop {{detail.name}}
+       {{detail.name}} - La Fringuerie Française
     {% endfor%}
 {% endblock %}
-
 {% block body %}
     {% for category in categoryById %}
         <div class="card-product-detail">
-            <div class="card col-11 col-sm-10">
-                <!-- pour chacune des catégories dans product.categories, je veux que tu m'affiches ... -->
+            <div class="card col-11 col-sm-9">
+                <!-- pour chacune des catégories dans product.category, je veux que tu m'affiches ... -->
                 <img src="{{ asset('images/' ~ category.pictureurl) }}" alt="image de la catégorie, correspondant à une photo de {{ category.pictureurl }}" class="card-product-detail-img-top">
                 <div class="card-body">
                     <h5 class="card-title card-name">{{ category.name }}</h5>
-                    <h6>En quelques mots : </h6>
                     <p class="text card-text">{{ category.description }}</p>
                     <hr>
-                    <p>Nombre de produits associés à la catégorie :</p>
+                    <h6>Nombre de produits associés à la catégorie :</h6>
                     <hr>
-                    <li class="nav-item dropdown" style="list-style: none; display: flex;">
-                        Le site contient {{ countCategories }} <a class="nav-link dropdown-toggle" style="padding: 0; margin-left: 5px;" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                catégories
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        {% for c in categories %}
-                        <li><a class="dropdown-item" href="{{ path('categories_details', {'id' : c.id} ) }}">{{ c.name }}</a></li>
+                    <h6>Découvrez quelques produits associés à la catégorie :</h6>
+                    <div class="associated-products">
+                        {% for associatedProducts in associatedProducts %}
+                            {% include 'category/_small-cards.html.twig' with {associatedProducts: associatedProducts, categories : categories} only %}
                         {% endfor %}
-                        </ul>
-                    </li>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
-        {% endfor %}
-        <div class="associated-products col-sm-10">
-            {% for associatedProducts in associatedProducts %}
-                {% include 'category/_small-cards.html.twig' with {associatedProducts: associatedProducts, categories : categories} only %}
-            {% endfor %}
         </div>
 {% endblock %}

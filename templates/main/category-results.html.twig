@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Résultats de la Recherche - La Fringuerie Française{% endblock %}
+{% block body %}
+                <h3 class="main-header_h3">Résultats de la recherche :</h3>
+                <hr>
+                <div class="grid">
+                    {% if categoriesFiltered %}
+                        {% for product in categoriesFiltered %}
+                            {% include 'product/_card.html.twig'%}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <hr>
+{% endblock %}

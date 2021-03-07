@@ -1,13 +1,13 @@
 <?php
 namespace App\Form;
 
+use App\Data\SearchData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SearchForm extends AbstractType{
+class SearchFormType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,6 +25,7 @@ class SearchForm extends AbstractType{
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'data_class' => SearchData::class,
             'method' => 'GET',   // on veut passer les paramètres dans l'url pour partager les recherches
             'csrf_protection' => false, // pas de risques lors d'une recherche
         ]);

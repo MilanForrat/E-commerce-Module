@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Data\CategoryData;
+use App\Data\FilterData;
 use App\Data\SearchData;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -42,12 +44,12 @@ class ProductRepository extends ServiceEntityRepository
     * Returns filter results
     * @return  Product[]
     */
-    public function findWithFilters(SearchData $data):array{
+    public function findWithFilters(FilterData $data):array{
 
         $query = $this
-        ->createQueryBuilder('p')
-        ->select('c', 'p')              // on met cette requête afin de diminuer le nombre de requêtes individuelles, 
-        ->join('p.categories', 'c');  //et les grouper
+        ->createQueryBuilder('p');
+         // on met cette requête afin de diminuer le nombre de requêtes individuelles, 
+
 
         if(!empty($data->min)){
             $query = $query
@@ -61,14 +63,21 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('max', $data->max); 
         }
 
-        if(!empty($data->promo)){
-            $query = $query
-            ->andWhere('p.promo = 1');    // on veut afficher les produits en promo (1 car true)
-        }
+        return $query = $query->getQuery()->getResult();
+    }
 
+     /**
+    * Returns category filter results
+    * @return  Product[]
+    */
+    public function findWithCategories(CategoryData $data):array{
+
+        $query = $this
+        ->createQueryBuilder('p');
+        dump($data);
         if (!empty($data->categories)) {
             $query=$query
-            ->andWhere('c.id IN (:categories)')  // on veut afficher les catégories 'c' envoyées par la liste :categories
+            ->Where('p.category = (:categories)')
             ->setParameter('categories', $data->categories);  // j'indique que mon paramètre categories correspondant à la liste de recherche categories
         }
 
@@ -92,7 +101,7 @@ class ProductRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('product');
         $queryBuilder->where('product.status = 1');
         $queryBuilder->setMaxResults(5);
-        $queryBuilder->orderBy('product.rating');
+        //$queryBuilder->orderBy('product.rating');
         $query = $queryBuilder->getQuery();
 
         return $query->getResult();
@@ -116,10 +125,10 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function getAssociatedProducts($number, $id){
         $queryBuilder = $this->createQueryBuilder('product');
-        $queryBuilder->innerJoin('product.categories', 'product_categories');
+        $queryBuilder->innerJoin('product.category', 'product_category');
 
         $queryBuilder->where(
-            $queryBuilder->expr()->eq('product_categories.id', $id)
+            $queryBuilder->expr()->eq('product_category.id', $id)
         );
         //dump($number);
         $queryBuilder->setMaxResults($number);

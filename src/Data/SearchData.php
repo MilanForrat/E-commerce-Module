@@ -2,29 +2,13 @@
 
 namespace App\Data;
 
-use App\Entity\Category;
+use App\Entity\Product;
 
 Class SearchData{
 
     /**
-     * @var Category [];
+     * Returns a string
+     * @var string
      */
-    public $categories = [];
-
-    /**
-     * @var null|integer
-    */
-    public $min;
-
-    /**
-    * @var null|integer
-    */
-    public $max;
-
-    /**
-     * @var boolean
-     */
-    public $promo = false;
-
-
+    public $search = '';
 }

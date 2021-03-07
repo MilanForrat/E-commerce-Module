@@ -60,10 +60,16 @@ class Category
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
+     */
+    private $Cproducts;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->Cproducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +203,36 @@ class Category
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getCproducts(): Collection
+    {
+        return $this->Cproducts;
+    }
+
+    public function addCproduct(Product $cproduct): self
+    {
+        if (!$this->Cproducts->contains($cproduct)) {
+            $this->Cproducts[] = $cproduct;
+            $cproduct->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCproduct(Product $cproduct): self
+    {
+        if ($this->Cproducts->removeElement($cproduct)) {
+            // set the owning side to null (unless already changed)
+            if ($cproduct->getCategory() === $this) {
+                $cproduct->setCategory(null);
+            }
+        }
 
         return $this;
     }
