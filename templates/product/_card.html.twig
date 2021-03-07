@@ -9,11 +9,12 @@
             <div class="text text-info card-promo_text col-md-6">En promotion !</div>
             {% endif %}
             <div class="card-title card-price_number">
-                {{ product.price | number_format(0, ',', ' ') }} €
+                {{ product.price | number_format(2, ',', ' ') }} €
             </div>
             <div>
                 <p class="card-categories"><a href="{{ path('categories_details', {id: product.category.id} ) }}">#{{ product.category }}</a></p>
             </div>
+            <a href="{{ path('add_to_cart', {id: product.id} ) }}" class="btn btn-primary btn-sm"><i class="fas fa-cart-plus"></i> Ajouter au panier</a>
         </div>
     </div>
 </div>
