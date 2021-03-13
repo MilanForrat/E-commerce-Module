@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Form\SearchForm;
+use App\Form\SearchFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
 use App\Repository\ProductRepository;
@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
         $user = new User();
 
         $form = $this->createForm(RegistrationFormType::class, $user);
-        $formSearch = $this->createForm(SearchForm::class);
+        $formSearch = $this->createForm(SearchFormType::class);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);

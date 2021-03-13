@@ -81,58 +81,14 @@ class User implements UserInterface
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=8, nullable=true)
-     * @Assert\Regex(
-     * pattern="/^[0-9]*$/",
-     * match=true,
-     * message="Vous ne pouvez mettre de lettres dans cette saisie"
-     * )
+     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="user")
      */
-    private $road_number;
+    private $addresses;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $road;
-
-    /**
-     * @ORM\Column(type="string", length=5, nullable=true)
-     * @Assert\Regex(
-     * pattern="/^[0-9]*$/",
-     * match=true,
-     * message="Vous ne pouvez mettre de lettres dans cette saisie"
-     * )
-     */
-    private $postal_code;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     * @Assert\Regex(
-     * pattern="#^/\d/#",
-     * match=false,
-     * message="Vous ne pouvez mettre de chiffres dans cette saisie"
-     * )
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     * @Assert\Regex(
-     * pattern="/^[0-9]*$/",
-     * match=true,
-     * message="Vous ne pouvez mettre de lettres dans cette saisie"
-     * )
-     */
-    private $phone_number;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $receipt_address;
-
+ 
     public function __construct()
     {
-        $this->orders = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -249,106 +205,33 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoadNumber(): ?string
-    {
-        return $this->road_number;
-    }
-
-    public function setRoadNumber(?string $road_number): self
-    {
-        $this->road_number = $road_number;
-
-        return $this;
-    }
-
-    public function getRoad(): ?string
-    {
-        return $this->road;
-    }
-
-    public function setRoad(?string $road): self
-    {
-        $this->road = $road;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?string
-    {
-        return $this->postal_code;
-    }
-
-    public function setPostalCode(?string $postal_code): self
-    {
-        $this->postal_code = $postal_code;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phone_number;
-    }
-
-    public function setPhoneNumber(?string $phone_number): self
-    {
-        $this->phone_number = $phone_number;
-
-        return $this;
-    }
-
-    public function getReceiptAddress(): ?string
-    {
-        return $this->receipt_address;
-    }
-
-    public function setReceiptAddress(?string $receipt_address): self
-    {
-        $this->receipt_address = $receipt_address;
-
-        return $this;
-    }
-
     /**
-     * @return Collection|Order[]
+     * @return Collection|Address[]
      */
-    public function getOrders(): Collection
+    public function getAddresses(): Collection
     {
-        return $this->orders;
+        return $this->addresses;
     }
 
-    public function addOrder(Order $order): self
+    public function addAddress(Address $address): self
     {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->setUser($this);
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeAddress(Address $address): self
     {
-        if ($this->orders->removeElement($order)) {
+        if ($this->addresses->removeElement($address)) {
             // set the owning side to null (unless already changed)
-            if ($order->getUser() === $this) {
-                $order->setUser(null);
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
             }
         }
 
         return $this;
     }
-
 }

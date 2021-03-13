@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Carnet d'adresse - La Fringuerie Française{% endblock %}
+
+{% block body %}
+<h1>Mes Adresses</h1>
+<div style="float: right;" class="mx-2">
+    <a href="{{ path('app_user') }}" class="btn btn-warning btn-sm mx-2"><i class="fas fa-arrow-circle-left"></i> Retour à mon espace personnel</a>
+    <a href="{{ path('user_address_add') }}" class="btn btn-success btn-sm mx-2"><i class="fas fa-plus-circle"></i> Ajouter une adresse</a>
+</div>
+<div>
+    <h3>C'est dans cet espace que vous pourrez modifier gérer toutes vos adresses.</h3>
+    <hr>
+    {% if app.user.addresses|length == 0 %}
+        <p class="text-center">
+            Vous n'avez pas encore ajouté d'adresse dans votre compte client. Pour en ajouter une, veuillez <a href="{{ path('user_address_add') }}">cliquer ici</a>.
+        </p>
+    {% else %}
+    <div class="row d-flex justify-content-center">
+        {% for address in app.user.addresses %}
+                <div class="card col-md-4 text-center px-2 py-2">
+                    <h5>{{address.name}}</h5>
+                    <h6>{{address.firstname}} {{address.lastname}}</h6>
+                    <p>
+                        {{address.address}}, <br>
+                        {{address.postal}} - {{address.city}} - {{address.country}}
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{path('user_address_modify', {'id':address.id})}}" class="btn btn-primary mx-2">Modifier</a>
+                        <a href="{{ path('user_address_delete', {'id': address.id}) }}" class="btn btn-danger mx-2">Supprimer</a>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+    {% endif %}   
+</div>
+    
+{% endblock %}

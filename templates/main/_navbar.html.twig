@@ -55,19 +55,31 @@
       </div>
       <div class="right-container">
         <ul>
-          {% if app.user %}
+          {% if app.user %} 
             <li class="nav-item">
-              <a data-toggle="tooltip" data-placement="bottom" title="Se déconnecter" class="nav-link" aria-current="page" href="{{ path('app_logout') }}"><i class="fas fa-user-times"></i></a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Mon Profil" class="nav-link" aria-current="page" href="{{ path('app_user') }}"><i class="fas fa-users-cog"></i> {{ app.user.firstname }}</a>
+            </li>
+            <li class="nav-link" style="color: lightgoldenrodyellow;">|</li>
+            <li class="nav-item">
+              <a data-toggle="tooltip" data-placement="bottom" title="Mon panier" class="nav-link" aria-current="page" href="{{ path('cart') }}"><i class="fas fa-shopping-cart"></i> Mon Panier</a>
+            </li> 
+            <li class="nav-link" style="color: lightgoldenrodyellow;">|</li>
+            <li class="nav-item">
+              <a data-toggle="tooltip" data-placement="bottom" title="Se déconnecter" class="nav-link" aria-current="page" href="{{ path('app_logout') }}"><i class="fas fa-user-times"></i> Se déconnecter</a>
             </li>
           {% else %}
             <li class="nav-item">
-              <a data-toggle="tooltip" data-placement="bottom" title="Se connecter" class="nav-link" aria-current="page" href="{{ path('app_user') }}"><i class="fas fa-user"></i></a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Se connecter" class="nav-link" aria-current="page" href="{{ path('app_login') }}"><i class="fas fa-user"></i> Se connecter</a>
+            </li>
+            <li class="nav-link" style="color: lightgoldenrodyellow;">|</li>
+            <li class="nav-item">
+            <a data-toggle="tooltip" data-placement="bottom" title="S'inscrire" class="nav-link" aria-current="page" href="{{ path('app_register') }}"><i class="fas fa-user"></i> S'inscrire</a>
+            </li>
+            <li class="nav-link" style="color: lightgoldenrodyellow;">|</li>
+            <li class="nav-item">
+              <a data-toggle="tooltip" data-placement="bottom" title="Mon panier" class="nav-link" aria-current="page" href="{{ path('cart') }}"><i class="fas fa-shopping-cart"></i> Mon Panier</a>
             </li>
           {% endif %}
-          <li class="nav-link" style="color: lightgoldenrodyellow;">|</li>
-          <li class="nav-item">
-            <a data-toggle="tooltip" data-placement="bottom" title="Mon panier" class="nav-link" aria-current="page" href="{{ path('cart') }}"><i class="fas fa-shopping-cart"></i></a>
-          </li>
         </ul>
       </div>
     </div>

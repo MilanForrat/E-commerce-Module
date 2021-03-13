@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une adresse - La Fringuerie Française{% endblock %}
+{% block body %}
+<h1>Ajouter une adresse</h1>
+<div style="float: right;" class="mx-2">
+    <a href="{{ path('app_user') }}" class="btn btn-warning btn-sm mx-2"><i class="fas fa-arrow-circle-left"></i> Retour à mon espace personnel</a>
+    <a href="{{ path('user_address') }}" class="btn btn-success btn-sm mx-2"><i class="fas fa-plus-circle"></i> Retour à mon Carnet d'Adresse</a>
+</div>
+<div class="card px-3 py-3">
+    {{ form_start(formAddress) }}
+    <div class="row">
+        <div class="col-md-12 my-2">{{ form_row(formAddress.name) }}</div>
+        <div class="col-md-6 my-2">{{ form_row(formAddress.firstname) }}</div>
+        <div class="col-md-6 my-2">{{ form_row(formAddress.lastname) }}</div>
+        <div class="col-md-6 my-2">{{ form_row(formAddress.company) }}</div>
+        <div class="col-md-6 my-2">{{ form_row(formAddress.address) }}</div>
+        <div class="col-md-6 my-2">{{ form_row(formAddress.postal) }}</div>
+        <div class="col-md-6 my-2">{{ form_row(formAddress.city) }}</div>
+        <div class="col-md-6 my-2">{{ form_row(formAddress.country) }}</div>
+        <div class="col-md-6 my-2 mb-4">{{ form_row(formAddress.phone) }}</div>
+    </div>
+    {{form_end(formAddress)}}
+</div>
+    
+{% endblock %}

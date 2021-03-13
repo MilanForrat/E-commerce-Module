@@ -1,7 +1,9 @@
 <div class="card">
     <div class="card-container">
                 <!-- pour chacune des catégories dans product.category, je veux que tu m'affiches ... -->
-        <a href="{{ path('products_detail', {'id': product.id}) }}"><img src="{{ asset('images/' ~ product.pictureurl) }}" alt="Photo d'un produit, appartenant à la catégorie : {{ product.pictureurl }}" class="card-img-top"></a>    
+        <div class="card-image">
+            <a href="{{ path('products_detail', {'id': product.id}) }}"><img src="{{ asset('images/' ~ product.pictureurl) }}" alt="Photo d'un produit, appartenant à la catégorie : {{ product.pictureurl }}" class="card-img-top"></a>    
+        </div>
         <div class="card-body">
             <a href="{{ path('products_detail', {'id': product.id}) }}"><h5 class="card-title card-name">{{ product.name }}</h5></a>
             <p class="text card-text">{{ product.subtitle }}</p>

@@ -3,7 +3,7 @@
 {% block title %}Espace utilisateur - La Fringuerie Française{% endblock %}
 {% block body %}
 <div class="profile">
-    <h3 class="profile_title">profile de {{ app.user.firstname }} {{app.user.lastname}}</h3>
+    <h3 class="profile_title">Bienvenue {{ app.user.firstname }}, voici votre espace personnel</h3>
     <h5>Mes informations générales :</h5>
     <ul class="profile-ul">
         <li class="profile-ul_li">
@@ -18,35 +18,7 @@
         <li class="profile-ul_li">
             Mot de passe : <a href="{{ path('app_forgot_password_request') }}">Modifier mon mot de passe</a>
         </li>
-        <li class="profile-ul_li">
-            Numéro de téléphone : {{app.user.phonenumber}}
-        </li>
     </ul>
-    <hr class="profile_hr">
-    <h5>Mon adresse de livraison :</h5>
-    <ul class="profile-ul">
-        <li class="profile-ul_li">
-            Numéro de voie : {{app.user.roadnumber}}
-        </li>
-        <li class="profile-ul_li">
-            Nom de la voie : {{app.user.road}}
-        </li>
-        <li class="profile-ul_li">
-            Code postal: {{app.user.postalcode}}
-        </li>
-        <li class="profile-ul_li">
-            Ville : {{app.user.city}}
-        </li>
-    </ul>
-    <hr class="profile_hr">
-    <h5>Mon adresse de facturation :</h5>
-    <ul class="profile-ul">
-        <li class="profile-ul_li">
-            Adresse de facturation : {{app.user.receiptaddress}}
-        </li>
-    </ul>
-</div>
-<div>
-    <a href="{{ path('app_user_modify_account') }}">Modifier le profile</a>
+    <h5><a href="{{ path('user_address') }}">Gérer mon carnet d'adresse</a></h5>
 </div>
 {% endblock %}

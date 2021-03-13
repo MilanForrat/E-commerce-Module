@@ -27,6 +27,9 @@ body{
     flex-direction: column !important;
   }
 }
+.btn-block{
+  width: 100%;
+}
 a{
   text-decoration: underline;
   text-decoration-color: rgba(255, 255, 255, 0.5);
@@ -232,14 +235,15 @@ nav{
   color: rgba(255, 255, 255) !important;
   background-color: rgba(0, 0, 0);
 }
-
-.card-img-top{
+.card-image{
+  width: 150px;
   margin: 1rem auto;
   display: flex;
   justify-content: center;
-  max-width: 150px; 
-  height: auto; 
-  object-fit: contain; 
+}
+.card-img-top{
+  max-width: 100%;
+  max-height: 100%;
 }
 /*       PRODUCT          */
 .product-container{
