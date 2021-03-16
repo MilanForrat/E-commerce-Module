@@ -26,7 +26,7 @@ class AdminController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('E-CommerceModule Admin Pannel');
+            ->setTitle('La Fringuerie Française ~ Admin Pannel');
     }
 
     public function configureMenuItems(): iterable
@@ -41,6 +41,8 @@ class AdminController extends AbstractDashboardController
         MenuItem::linkToCrud('Produits', 'fas fa-cube', Product::class),
         MenuItem::linkToCrud('Catégories', 'far fa-folder-open', Category::class),
         MenuItem::linkToCrud('Marques', 'fa fa-tags', Marque::class),
+
+        MenuItem::section('Transport'),
         MenuItem::linkToCrud('Transporteurs', 'fa fa-tags', Transporter::class),
 
         MenuItem::section('Quitter'),
