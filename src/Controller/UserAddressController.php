@@ -164,7 +164,6 @@ class UserAddressController extends AbstractController
             $this->entityManager->remove($address);
             $this->entityManager->flush();
         }
-        
 
         return $this->redirectToRoute('user_address');
     }

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Marque;
 use App\Entity\Product;
+use App\Entity\Transporter;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -40,6 +41,7 @@ class AdminController extends AbstractDashboardController
         MenuItem::linkToCrud('Produits', 'fas fa-cube', Product::class),
         MenuItem::linkToCrud('Catégories', 'far fa-folder-open', Category::class),
         MenuItem::linkToCrud('Marques', 'fa fa-tags', Marque::class),
+        MenuItem::linkToCrud('Transporteurs', 'fa fa-tags', Transporter::class),
 
         MenuItem::section('Quitter'),
         MenuItem::linkToLogout('Déconnexion', 'fas fa-sign-out-alt'),
